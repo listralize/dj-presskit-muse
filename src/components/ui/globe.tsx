@@ -29,7 +29,7 @@ const Globe: React.FC = () => {
               border: "none",
               outline: "none",
               boxShadow: "none",
-              filter: "brightness(0.55) saturate(0.7)",
+              filter: "brightness(1.1) saturate(1.3) hue-rotate(-10deg)",
             }}
           />
 
@@ -37,7 +37,7 @@ const Globe: React.FC = () => {
           <div
             className="absolute inset-0 rounded-full"
             style={{
-              background: "linear-gradient(130deg, transparent 35%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.8) 100%)",
+              background: "linear-gradient(130deg, transparent 40%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.5) 100%)",
               pointerEvents: "none",
             }}
           />
