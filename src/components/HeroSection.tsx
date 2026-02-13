@@ -109,7 +109,7 @@ const HeroSection = () => {
             textShadow: "0 0 15px rgba(255,255,255,0.4), 0 0 30px rgba(200,210,230,0.15)",
           }}
         >
-          Energia em Ritmo · Eletrofunk · House Music
+          Eletrofunk · House · Energia em Ritmo
         </p>
       </div>
 
