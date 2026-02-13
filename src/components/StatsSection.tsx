@@ -11,7 +11,7 @@ const StatsSection = () => {
         <div className="grid grid-cols-3 max-w-3xl mx-auto divide-x divide-border">
           {stats.map((stat) => (
             <div key={stat.label} className="text-center px-4 py-6">
-              <p className="text-4xl md:text-5xl font-display text-yellow-400 tracking-wide" style={{ textShadow: "0 0 12px rgba(250,204,21,0.3)" }}>
+              <p className="text-4xl md:text-5xl font-display tracking-wide" style={{ color: "#a6c8d3", textShadow: "0 0 12px rgba(255,255,255,0.2)" }}>
                 {stat.value}
               </p>
               <p className="text-xs text-foreground/70 mt-3 uppercase tracking-[0.25em]">
