@@ -1,5 +1,4 @@
 import React from "react";
-import earthTexture from "@/assets/earth-texture.jpg";
 
 const Globe: React.FC = () => {
   return (
@@ -7,8 +6,8 @@ const Globe: React.FC = () => {
       <style>
         {`
           @keyframes earthRotate {
-            0% { background-position: 0% 0; }
-            100% { background-position: -200% 0; }
+            0% { background-position: 0 0; }
+            100% { background-position: 400px 0; }
           }
           @keyframes twinkling { 0%,100% { opacity:0.1; } 50% { opacity:1; } }
           @keyframes twinkling-slow { 0%,100% { opacity:0.1; } 50% { opacity:1; } }
@@ -18,31 +17,21 @@ const Globe: React.FC = () => {
       </style>
       <div className="relative w-full h-full flex items-center justify-center">
         <div className="relative" style={{ width: "100%", paddingBottom: "100%" }}>
-          {/* Earth sphere with real texture - no border */}
+          {/* Earth sphere */}
           <div
             className="absolute inset-0 rounded-full overflow-hidden"
             style={{
-              backgroundImage: `url(${earthTexture})`,
-              backgroundSize: "200% 100%",
+              backgroundImage: `url(https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/earth-texture.jpg)`,
+              backgroundSize: "cover",
+              backgroundPosition: "left",
               backgroundRepeat: "repeat-x",
-              animation: "earthRotate 20s linear infinite",
-              border: "none",
-              outline: "none",
-              boxShadow: "none",
-              filter: "brightness(1.1) saturate(1.3) hue-rotate(-10deg)",
+              animation: "earthRotate 30s linear infinite",
+              boxShadow:
+                "0 0 15px 5px rgba(255,255,255,0.2), inset 0 0 40px 20px #000, inset -20px -10px 30px 10px #c3f4ff, inset 10px 10px 20px 10px #0000006e, inset 0 0 50px 30px #000000aa",
             }}
           />
 
-          {/* Day/night terminator shadow */}
-          <div
-            className="absolute inset-0 rounded-full"
-            style={{
-              background: "linear-gradient(130deg, transparent 40%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.5) 100%)",
-              pointerEvents: "none",
-            }}
-          />
-
-          {/* Stars around the globe */}
+          {/* Stars */}
           {[
             { top: "-15%", left: "10%", size: 2, anim: "twinkling 3s infinite 0.2s" },
             { top: "5%", left: "-10%", size: 1.5, anim: "twinkling-slow 4s infinite 1s" },
@@ -54,7 +43,7 @@ const Globe: React.FC = () => {
           ].map((star, i) => (
             <div
               key={i}
-              className="absolute rounded-full bg-foreground/80"
+              className="absolute rounded-full bg-white"
               style={{
                 top: star.top,
                 left: star.left,
