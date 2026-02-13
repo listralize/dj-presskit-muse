@@ -118,7 +118,7 @@ export function StarsBackground({
       {...props}
     >
       <motion.div
-        className="absolute inset-0"
+        className="fixed inset-0 pointer-events-none"
         style={{ x: springX, y: springY }}
       >
         <StarLayer count={800} size={1} starColor={starColor} transition={{ repeat: Infinity, duration: speed, ease: "linear" }} />
