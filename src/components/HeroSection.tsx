@@ -118,8 +118,8 @@ const HeroSection = () => {
             <div
               className="absolute z-10 pointer-events-none w-[148px] h-[148px] md:w-[200px] md:h-[200px] lg:w-[250px] lg:h-[250px]"
               style={{
-                top: "calc(24% + 2px)",
-                right: "calc(-30% - 13px)",
+                top: "calc(24% + 6px)",
+                right: "calc(-30% - 9px)",
               }}
             >
               <Globe />
