@@ -1,9 +1,11 @@
+import djBio from "@/assets/dj-bio.png";
+
 const BioSection = () => {
   return (
     <section className="py-28">
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16">
-          {/* Left label */}
+          {/* Left label + image */}
           <div className="md:col-span-4 flex flex-col gap-4">
             <div className="line-separator" />
             <h2 className="text-5xl md:text-6xl font-display text-foreground tracking-wider">
@@ -12,6 +14,13 @@ const BioSection = () => {
             <p className="text-xs text-muted-foreground uppercase tracking-[0.25em]">
               Biografia
             </p>
+            <div className="mt-4 rounded-xl overflow-hidden">
+              <img
+                src={djBio}
+                alt="DJ Unk no palco"
+                className="w-full h-auto object-cover rounded-xl"
+              />
+            </div>
           </div>
 
           {/* Right content */}
