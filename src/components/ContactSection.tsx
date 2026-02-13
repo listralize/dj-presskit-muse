@@ -42,69 +42,44 @@ const videosData = [
   { id: "v3", image: "/placeholder.svg", title: "Vídeo 3" },
 ];
 
+const necessariosData = [
+  { id: "n1", image: "/downloads/logo-unk.png", title: "Logo" },
+  { id: "n2", image: "/downloads/logo-unk.png", title: "Rider Técnico" },
+];
+
+const necessariosDownloadFiles = [
+  "/downloads/LOGONEW_1.pdf",
+  "/downloads/Rider_Tecnico_UNK_DJ.pdf",
+];
+
 const ContactSection = () => {
   const [riderOpen, setRiderOpen] = useState(false);
 
-  const handleDownloadLogo = () => {
-    const a = document.createElement("a");
-    a.href = "/downloads/LOGONEW_1.pdf";
-    a.download = "Logo_UNK_DJ.pdf";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+  const handleNecessariosClick = (_project: { id: string; image: string; title: string }, index: number) => {
+    if (index === 0) {
+      // Logo - download
+      const a = document.createElement("a");
+      a.href = "/downloads/LOGONEW_1.pdf";
+      a.download = "Logo_UNK_DJ.pdf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      return true;
+    }
+    if (index === 1) {
+      // Rider - open overlay
+      setRiderOpen(true);
+      return true;
+    }
   };
 
   return (
     <section className="py-28 border-t border-border">
       <div className="container mx-auto px-6 max-w-5xl">
-        {/* 3D Folders + Necessários */}
+        {/* 3D Folders */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-12">
           <AnimatedFolder title="Fotos" projects={fotosData} downloadFiles={fotosDownloadFiles} />
-
-          {/* Necessários - custom folder-like card */}
-          <div className="relative flex flex-col items-center justify-center cursor-pointer rounded-2xl p-8 transition-all duration-500 ease-out group"
-            style={{ minWidth: "280px", minHeight: "320px" }}
-          >
-            <div className="absolute inset-0 rounded-2xl transition-opacity duration-500 opacity-0 group-hover:opacity-[0.08]"
-              style={{ background: "radial-gradient(circle at 50% 70%, hsl(var(--folder-tab)) 0%, transparent 70%)" }}
-            />
-            
-            <div className="flex flex-col items-center gap-4 mb-4">
-              {/* Rider Técnico card */}
-              <button
-                onClick={() => setRiderOpen(true)}
-                className="w-48 backdrop-blur-sm bg-card/40 border border-border/40 rounded-xl p-5 flex flex-col items-center gap-3 hover:bg-card/60 hover:border-border/60 transition-all duration-300 group/card"
-              >
-                <div className="w-10 h-10 rounded-lg bg-foreground/5 border border-border/30 flex items-center justify-center">
-                  <FileText size={18} className="text-foreground/50 group-hover/card:text-foreground/80 transition-colors" />
-                </div>
-                <div className="text-center">
-                  <p className="text-sm text-foreground/80 font-medium">Rider Técnico</p>
-                  <p className="text-[10px] text-foreground/40 mt-0.5">Ver detalhes</p>
-                </div>
-              </button>
-
-              {/* Logo download card */}
-              <button
-                onClick={handleDownloadLogo}
-                className="w-48 backdrop-blur-sm bg-card/40 border border-border/40 rounded-xl p-5 flex flex-col items-center gap-3 hover:bg-card/60 hover:border-border/60 transition-all duration-300 group/card"
-              >
-                <div className="w-10 h-10 rounded-lg bg-foreground/5 border border-border/30 flex items-center justify-center">
-                  <ImageIcon size={18} className="text-foreground/50 group-hover/card:text-foreground/80 transition-colors" />
-                </div>
-                <div className="text-center">
-                  <p className="text-sm text-foreground/80 font-medium">Logo</p>
-                  <p className="text-[10px] text-foreground/40 mt-0.5 flex items-center gap-1 justify-center">
-                    <Download size={10} /> Baixar PDF
-                  </p>
-                </div>
-              </button>
-            </div>
-
-            <h3 className="text-foreground text-lg font-semibold font-display tracking-wider">Necessários</h3>
-            <p className="text-muted-foreground text-sm">2 arquivos</p>
-          </div>
-
+          <AnimatedFolder title="Necessários" projects={necessariosData} downloadFiles={necessariosDownloadFiles} onItemClick={handleNecessariosClick} />
           <AnimatedFolder title="Vídeos" projects={videosData} />
         </div>
 

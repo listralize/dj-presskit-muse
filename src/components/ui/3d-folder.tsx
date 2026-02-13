@@ -23,6 +23,7 @@ interface AnimatedFolderProps {
   projects: Project[]
   className?: string
   downloadFiles?: string[]
+  onItemClick?: (project: Project, index: number) => boolean | void
 }
 
 export function AnimatedFolder({
@@ -30,6 +31,7 @@ export function AnimatedFolder({
   projects,
   className,
   downloadFiles,
+  onItemClick,
 }: AnimatedFolderProps) {
   const [isOpened, setIsOpened] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
@@ -38,6 +40,11 @@ export function AnimatedFolder({
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const handleProjectClick = (project: Project, index: number) => {
+    // If onItemClick returns true, it handled the click — skip lightbox
+    if (onItemClick) {
+      const handled = onItemClick(project, index)
+      if (handled) return
+    }
     const cardEl = cardRefs.current[index]
     if (cardEl) {
       setSourceRect(cardEl.getBoundingClientRect())
