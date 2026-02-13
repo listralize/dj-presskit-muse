@@ -37,10 +37,10 @@ const fotosDownloadFiles = [
 ];
 
 const videosData = [
-  { id: "v1", image: "/placeholder.svg", title: "Vídeo 1" },
-  { id: "v2", image: "/placeholder.svg", title: "Vídeo 2" },
-  { id: "v3", image: "/placeholder.svg", title: "Vídeo 3" },
+  { id: "v1", image: "/placeholder.svg", title: "Ver Vídeos" },
 ];
+
+const VIDEOS_DRIVE_URL = "https://drive.google.com/drive/folders/178f-sz2C9RQ2LkXNvosJvRhDdrP1ypbD?usp=sharing";
 
 const necessariosData = [
   { id: "n1", image: "/downloads/logo-unk.png", title: "Logo" },
@@ -80,7 +80,7 @@ const ContactSection = () => {
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-12">
           <AnimatedFolder title="Fotos" projects={fotosData} downloadFiles={fotosDownloadFiles} />
           <AnimatedFolder title="Necessários" projects={necessariosData} downloadFiles={necessariosDownloadFiles} onItemClick={handleNecessariosClick} />
-          <AnimatedFolder title="Vídeos" projects={videosData} />
+          <AnimatedFolder title="Vídeos" projects={videosData} onItemClick={() => { window.open(VIDEOS_DRIVE_URL, "_blank"); return true; }} />
         </div>
 
         {/* DJ on the moon */}
