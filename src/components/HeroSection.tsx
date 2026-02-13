@@ -5,6 +5,7 @@ import { z } from "zod";
 import djPhoto from "@/assets/dj-photo.png";
 import logo from "@/assets/logo.png";
 import Globe from "@/components/ui/globe";
+import { UnkDjEffect } from "@/components/ui/text-effect";
 import { Instagram, Youtube, Music, MessageCircle, User, Phone, Calendar, MessageSquare, ChevronDown } from "lucide-react";
 
 const formSchema = z.object({
@@ -98,7 +99,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex flex-col overflow-hidden">
       {/* Logo + Legenda */}
       <div className="relative z-10 flex flex-col items-center pt-10 pb-4 gap-3">
-        <img src={logo} alt="Unk DJ Logo" className="w-28 md:w-36" />
+        <UnkDjEffect className="h-16 md:h-20 text-foreground" speed={0.8} />
         <p className="text-[10px] md:text-xs text-muted-foreground tracking-[0.35em] uppercase font-light">
           Energia em Ritmo · Eletrofunk · House Music
         </p>
