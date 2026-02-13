@@ -37,34 +37,54 @@ const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
     setGenerating(true);
     try {
       const element = pdfContentRef.current;
+      
+      // Store original styles
+      const originalOverflow = element.style.overflow;
+      const originalMaxHeight = element.style.maxHeight;
+      const originalHeight = element.style.height;
+      
+      // Temporarily expand element to full height for capture
+      element.style.overflow = "visible";
+      element.style.maxHeight = "none";
+      element.style.height = "auto";
+      
       const canvas = await html2canvas(element, {
         scale: 2,
         useCORS: true,
         logging: false,
         backgroundColor: "#05070a",
+        scrollY: 0,
+        scrollX: 0,
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
       });
+      
+      // Restore original styles
+      element.style.overflow = originalOverflow;
+      element.style.maxHeight = originalMaxHeight;
+      element.style.height = originalHeight;
 
-      const imgWidth = 210;
-      const pageHeight = 297;
+      const imgData = canvas.toDataURL("image/png");
+      const imgWidth = 210; // A4 width mm
+      const pageHeight = 297; // A4 height mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
       const pdf = new jsPDF("p", "mm", "a4");
-      // Fill background
-      pdf.setFillColor(5, 7, 10);
-      pdf.rect(0, 0, imgWidth, pageHeight, "F");
-
-      const imgData = canvas.toDataURL("image/png");
       let heightLeft = imgHeight;
       let position = 0;
 
+      // First page
+      pdf.setFillColor(5, 7, 10);
+      pdf.rect(0, 0, imgWidth, pageHeight, "F");
       pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
 
+      // Additional pages
       while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
         pdf.addPage();
         pdf.setFillColor(5, 7, 10);
         pdf.rect(0, 0, imgWidth, pageHeight, "F");
+        position -= pageHeight;
         pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }

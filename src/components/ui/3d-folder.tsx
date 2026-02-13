@@ -228,16 +228,6 @@ export function AnimatedFolder({
           </button>
         )}
 
-        {/* Click hint */}
-        <div
-          className="text-muted-foreground absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5 text-xs transition-all duration-300"
-          style={{
-            opacity: isOpened ? 0 : 0.6,
-            transform: isOpened ? "translateY(10px)" : "translateY(0)",
-          }}
-        >
-          <span>Clique para explorar</span>
-        </div>
       </div>
 
       <ImageLightbox
@@ -562,7 +552,9 @@ function ImageLightbox({
                 </div>
               </div>
 
-              <button
+              <a
+                href={currentProject?.image}
+                download={currentProject?.title || "photo"}
                 className={cn(
                   "flex items-center gap-2 px-4 py-2",
                   "text-muted-foreground text-sm font-medium",
@@ -572,9 +564,9 @@ function ImageLightbox({
                   "hover:text-foreground"
                 )}
               >
-                <span>Ver</span>
-                <ExternalLink className="h-3.5 w-3.5" />
-              </button>
+                <span>Salvar</span>
+                <Download className="h-3.5 w-3.5" />
+              </a>
             </div>
           </div>
         </div>
