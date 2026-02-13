@@ -53,7 +53,7 @@ const ContactSection = () => {
 
             {/* PNG cutout with glow pulse effect, no movement */}
             <motion.div
-              className="absolute inset-0 z-10 flex items-end justify-center" style={{ top: "-20px" }}
+              className="absolute inset-0 z-10 flex items-end justify-center" style={{ top: "-60px" }}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
