@@ -97,10 +97,28 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden">
-      {/* Logo + Legenda */}
-      <div className="relative z-10 flex flex-col items-center pt-10 pb-4 gap-3">
-        <UnkDjEffect className="h-16 md:h-20 text-foreground" speed={0.8} />
-        <p className="text-[10px] md:text-xs text-muted-foreground tracking-[0.35em] uppercase font-light">
+      {/* Logo + DJ + Legenda */}
+      <div className="relative z-10 flex flex-col items-center pt-10 pb-4 gap-1">
+        <div className="relative flex flex-col items-center">
+          <UnkDjEffect className="h-16 md:h-20 text-white" speed={0.8} />
+          {/* DJ text centered under the K */}
+          <span
+            className="text-white/90 text-[10px] md:text-xs font-light tracking-[0.5em] uppercase"
+            style={{
+              marginTop: "-2px",
+              marginRight: "-80px",
+              textShadow: "0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.2)",
+            }}
+          >
+            DJ
+          </span>
+        </div>
+        <p
+          className="text-[10px] md:text-xs text-white/80 tracking-[0.35em] uppercase font-light text-center mt-3"
+          style={{
+            textShadow: "0 0 15px rgba(255,255,255,0.4), 0 0 30px rgba(200,210,230,0.15)",
+          }}
+        >
           Energia em Ritmo · Eletrofunk · House Music
         </p>
       </div>
