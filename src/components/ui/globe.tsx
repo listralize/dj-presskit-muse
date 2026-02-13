@@ -17,7 +17,7 @@ const Globe: React.FC = () => {
       </style>
       <div className="flex items-center justify-center w-full h-full">
         <div
-          className="w-[250px] h-[250px] rounded-full overflow-hidden relative"
+          className="w-full aspect-square rounded-full overflow-hidden relative"
           style={{
             backgroundImage: `url(https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/globe.jpeg)`,
             backgroundSize: "cover",
