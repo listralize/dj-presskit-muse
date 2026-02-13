@@ -30,7 +30,7 @@ const ContactSection = () => {
               contato@unkdj.com
             </a>
             <a
-              href="https://wa.me/5500000000000"
+              href="https://wa.me/5562934755284"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 px-6 py-3 border border-border text-foreground hover:border-primary/40 transition-colors duration-300 text-sm w-full max-w-xs justify-center"
