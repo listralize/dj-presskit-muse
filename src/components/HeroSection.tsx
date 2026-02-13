@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "motion/react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import djPhoto from "@/assets/dj-hero-banner.png";
@@ -23,21 +23,20 @@ const WHATSAPP_NUMBER = "5562934755284";
 
 const eventTypes = ["Festa", "Festival", "Casamento", "Boate/Club", "Outro"];
 
-const FloatingInput = ({
-  id,
-  label,
-  icon: Icon,
-  error,
-  ...props
-}: {
+const FloatingInput = React.forwardRef<HTMLInputElement, {
   id: string;
   label: string;
   icon: React.ComponentType<{ size?: number | string; className?: string }>;
   error?: string;
-} & React.InputHTMLAttributes<HTMLInputElement>) => {
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  name?: string;
+  type?: string;
+}>(({ id, label, icon: Icon, error, value, onChange, onBlur, name, type, ...props }, ref) => {
   const [focused, setFocused] = useState(false);
-  const hasValue = props.value && String(props.value).length > 0;
-  const isDate = props.type === "date";
+  const hasValue = value && String(value).length > 0;
+  const isDate = type === "date";
   const hideLabel = focused || hasValue || isDate;
 
   return (
@@ -46,35 +45,41 @@ const FloatingInput = ({
         <Icon size={16} />
       </div>
       <input
-         id={id}
-         {...props}
-         onFocus={(e) => { setFocused(true); props.onFocus?.(e); }}
-         onBlur={(e) => { setFocused(false); props.onBlur?.(e); }}
-         className="w-full bg-transparent border-b border-foreground/15 focus:border-foreground/50 pl-7 pr-0 py-3 text-sm text-foreground outline-none transition-all duration-300 peer placeholder-transparent [&::-webkit-calendar-picker-indicator]:invert"
-         placeholder={label}
-       />
-       {!isDate && (
-         <label
-           htmlFor={id}
-           className={`absolute left-7 transition-all duration-300 pointer-events-none ${
-             hideLabel
-               ? "-top-1 text-[10px] tracking-widest uppercase text-foreground/70 opacity-0"
-               : "top-3 text-sm text-foreground/40"
-           }`}
-         >
-           {label}
-         </label>
-       )}
+        id={id}
+        ref={ref}
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        onFocus={() => setFocused(true)}
+        onBlur={(e) => { setFocused(false); onBlur?.(e); }}
+        className="w-full bg-transparent border-b border-foreground/15 focus:border-foreground/50 pl-7 pr-0 py-3 text-sm text-foreground outline-none transition-all duration-300 peer placeholder-transparent [&::-webkit-calendar-picker-indicator]:invert"
+        placeholder={label}
+      />
+      {!isDate && (
+        <label
+          htmlFor={id}
+          className={`absolute left-7 transition-all duration-300 pointer-events-none ${
+            hideLabel
+              ? "-top-1 text-[10px] tracking-widest uppercase text-foreground/70 opacity-0"
+              : "top-3 text-sm text-foreground/40"
+          }`}
+        >
+          {label}
+        </label>
+      )}
       {error && <p className="text-[11px] text-destructive/80 mt-1.5 pl-7">{error}</p>}
     </div>
   );
-};
+});
+FloatingInput.displayName = "FloatingInput";
 
 const HeroSection = () => {
   const {
-    register,
+    control,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -172,17 +177,19 @@ const HeroSection = () => {
           </div>
 
            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 backdrop-blur-sm bg-card/30 border border-border/40 rounded-2xl p-6 md:p-8">
-             <FloatingInput
-               id="nome"
-               label="Seu nome"
-               icon={User}
-               error={errors.nome?.message}
-               {...register("nome")}
-               value={nome}
+             <Controller
+               name="nome"
+               control={control}
+               render={({ field }) => (
+                 <FloatingInput
+                   id="nome"
+                   label="Seu nome"
+                   icon={User}
+                   error={errors.nome?.message}
+                   {...field}
+                 />
+               )}
              />
-
-
-
 
              {/* Custom select */}
              <div className="relative group">
@@ -206,7 +213,7 @@ const HeroSection = () => {
                        key={type}
                        type="button"
                        onClick={() => {
-                         register("tipoEvento").onChange({ target: { name: "tipoEvento", value: type } });
+                         setValue("tipoEvento", type, { shouldValidate: true });
                          setSelectOpen(false);
                        }}
                        className="w-full px-7 py-2.5 text-sm text-left text-foreground/70 hover:text-foreground hover:bg-accent/50 transition-colors duration-200"
@@ -219,28 +226,39 @@ const HeroSection = () => {
                {errors.tipoEvento && <p className="text-[11px] text-destructive mt-1.5 pl-7">{errors.tipoEvento.message}</p>}
              </div>
 
-             <FloatingInput
-               id="dataEvento"
-               label="Data do evento"
-               icon={Calendar}
-               type="date"
-               {...register("dataEvento")}
-               value={watch("dataEvento")}
+             <Controller
+               name="dataEvento"
+               control={control}
+               render={({ field }) => (
+                 <FloatingInput
+                   id="dataEvento"
+                   label="Data do evento"
+                   icon={Calendar}
+                   type="date"
+                   {...field}
+                 />
+               )}
              />
 
              {/* Textarea */}
-             <div className="relative group">
-               <div className="absolute left-0 top-3 text-foreground/40 group-focus-within:text-foreground transition-colors duration-300" style={{ filter: "drop-shadow(0 0 4px rgba(255,255,255,0.3))" }}>
-                 <MessageCircle size={16} />
-               </div>
-               <textarea
-                 id="mensagem"
-                 {...register("mensagem")}
-                 rows={3}
-                 placeholder="Mensagem (opcional)"
-                 className="w-full bg-transparent border-b border-foreground/15 focus:border-foreground/50 pl-7 py-3 text-sm text-foreground outline-none transition-all duration-300 placeholder:text-foreground/40 resize-none"
-               />
-             </div>
+             <Controller
+               name="mensagem"
+               control={control}
+               render={({ field }) => (
+                 <div className="relative group">
+                   <div className="absolute left-0 top-3 text-foreground/40 group-focus-within:text-foreground transition-colors duration-300" style={{ filter: "drop-shadow(0 0 4px rgba(255,255,255,0.3))" }}>
+                     <MessageCircle size={16} />
+                   </div>
+                   <textarea
+                     id="mensagem"
+                     {...field}
+                     rows={3}
+                     placeholder="Mensagem (opcional)"
+                     className="w-full bg-transparent border-b border-foreground/15 focus:border-foreground/50 pl-7 py-3 text-sm text-foreground outline-none transition-all duration-300 placeholder:text-foreground/40 resize-none"
+                   />
+                 </div>
+               )}
+             />
 
              {/* Submit */}
              <button
