@@ -54,4 +54,3 @@ As 3 pastas terao conteudo placeholder inicialmente:
 - **Videos**: 3 cards placeholder aguardando thumbnails de video
 
 O usuario podera enviar os arquivos reais depois para popular cada pasta.
-
