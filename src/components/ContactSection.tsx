@@ -3,8 +3,10 @@ import { motion } from "motion/react";
 import logo from "@/assets/logo.png";
 import djMoon from "@/assets/dj-moon.png";
 import { UnkDjEffect } from "@/components/ui/text-effect";
-import { Instagram, Youtube, Download, FileText, Image as ImageIcon } from "lucide-react";
+import { Instagram, Youtube } from "lucide-react";
 import SpotifyIcon from "@/components/ui/SpotifyIcon";
+import listralizeFav from "@/assets/listralize-fav.svg";
+import listralizeFont from "@/assets/listralize-font.svg";
 import { AnimatedFolder } from "@/components/ui/3d-folder";
 import RiderOverlay from "@/components/RiderOverlay";
 
@@ -135,6 +137,18 @@ const ContactSection = () => {
           <p className="text-[10px] text-foreground/40 uppercase tracking-widest">
             © 2025 Unk DJ · Todos os direitos reservados
           </p>
+          <a
+            href="https://www.listralize.com.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex flex-col items-center gap-1.5 opacity-40 hover:opacity-70 transition-opacity duration-300"
+          >
+            <span className="text-[9px] text-foreground/60 uppercase tracking-[0.2em]">Desenvolvido por</span>
+            <div className="flex items-center gap-1.5">
+              <img src={listralizeFav} alt="Listralize" className="h-4 w-auto" />
+              <img src={listralizeFont} alt="Listralize" className="h-2.5 w-auto" />
+            </div>
+          </a>
         </div>
       </div>
 
