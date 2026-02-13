@@ -27,13 +27,15 @@ const Globe: React.FC = () => {
           >
             {/* Continent overlay with rotation */}
             <div
-              className="absolute inset-0 rounded-full opacity-30"
+              className="absolute inset-0 rounded-full opacity-50"
               style={{
                 backgroundImage: `
-                  radial-gradient(ellipse 40px 30px at 35% 35%, hsla(140, 50%, 40%, 0.6) 0%, transparent 100%),
-                  radial-gradient(ellipse 25px 45px at 60% 40%, hsla(140, 50%, 35%, 0.5) 0%, transparent 100%),
-                  radial-gradient(ellipse 30px 20px at 45% 60%, hsla(140, 50%, 30%, 0.4) 0%, transparent 100%),
-                  radial-gradient(ellipse 20px 35px at 70% 55%, hsla(140, 40%, 35%, 0.4) 0%, transparent 100%)
+                  radial-gradient(ellipse 40px 30px at 35% 35%, hsla(140, 50%, 40%, 0.7) 0%, transparent 100%),
+                  radial-gradient(ellipse 25px 45px at 60% 40%, hsla(140, 50%, 35%, 0.6) 0%, transparent 100%),
+                  radial-gradient(ellipse 30px 20px at 45% 60%, hsla(140, 50%, 30%, 0.5) 0%, transparent 100%),
+                  radial-gradient(ellipse 20px 35px at 70% 55%, hsla(140, 40%, 35%, 0.5) 0%, transparent 100%),
+                  radial-gradient(ellipse 35px 25px at 25% 55%, hsla(140, 45%, 35%, 0.4) 0%, transparent 100%),
+                  radial-gradient(ellipse 15px 40px at 80% 35%, hsla(140, 40%, 30%, 0.4) 0%, transparent 100%)
                 `,
                 animation: "earthRotate 20s linear infinite",
               }}
@@ -42,7 +44,15 @@ const Globe: React.FC = () => {
             <div
               className="absolute inset-[-2px] rounded-full"
               style={{
-                background: "radial-gradient(circle at 25% 25%, hsla(200, 80%, 60%, 0.08), transparent 50%)",
+                background: "radial-gradient(circle at 25% 25%, hsla(200, 80%, 60%, 0.15), transparent 50%)",
+              }}
+            />
+            {/* Atmosphere halo */}
+            <div
+              className="absolute inset-[-4px] rounded-full"
+              style={{
+                background: "radial-gradient(circle, transparent 45%, hsla(200, 70%, 50%, 0.12) 50%, transparent 55%)",
+                boxShadow: "0 0 30px 5px hsla(200, 70%, 50%, 0.08)",
               }}
             />
           </div>

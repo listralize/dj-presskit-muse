@@ -96,19 +96,6 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden">
-      {/* Globe background */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div
-          className="absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] lg:w-[800px] lg:h-[800px] opacity-20"
-          style={{
-            top: "50%",
-            right: "-10%",
-            transform: "translateY(-50%)",
-          }}
-        >
-          <Globe />
-        </div>
-      </div>
       {/* Logo + Legenda */}
       <div className="relative z-10 flex flex-col items-center pt-10 pb-4 gap-3">
         <img src={logo} alt="Unk DJ Logo" className="w-28 md:w-36" />
@@ -121,12 +108,23 @@ const HeroSection = () => {
       <div className="relative z-10 flex-1 flex flex-col lg:flex-row items-center justify-center container mx-auto px-6 gap-10 lg:gap-20 pb-16 pt-4">
         {/* DJ Photo */}
         <div className="lg:w-5/12 flex justify-center">
-          <div className="relative w-64 md:w-80 lg:w-96 aspect-[3/4] overflow-hidden rounded-sm">
+           <div className="relative w-64 md:w-80 lg:w-96 aspect-[3/4] overflow-hidden rounded-sm">
             <img
               src={djPhoto}
               alt="Unk DJ"
               className="w-full h-full object-cover"
             />
+            {/* Globe overlay on DJ photo planet */}
+            <div
+              className="absolute z-10 pointer-events-none w-[140px] h-[140px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] opacity-65"
+              style={{
+                top: "5%",
+                right: "0%",
+                transform: "translate(10%, -5%)",
+              }}
+            >
+              <Globe />
+            </div>
             <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-background/20" />
             {/* Social links over photo bottom */}
             <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-5">
