@@ -18,7 +18,7 @@ const Globe: React.FC = () => {
       </style>
       <div className="relative w-full h-full flex items-center justify-center">
         <div className="relative" style={{ width: "100%", paddingBottom: "100%" }}>
-          {/* Earth sphere with real texture */}
+          {/* Earth sphere with real texture - no border */}
           <div
             className="absolute inset-0 rounded-full overflow-hidden"
             style={{
@@ -26,16 +26,18 @@ const Globe: React.FC = () => {
               backgroundSize: "200% 100%",
               backgroundRepeat: "repeat-x",
               animation: "earthRotate 20s linear infinite",
-              boxShadow: "inset -30px -10px 60px rgba(0,0,0,0.7), inset 10px 10px 30px rgba(100,180,255,0.08)",
+              border: "none",
+              outline: "none",
+              boxShadow: "none",
             }}
           />
 
-          {/* Atmosphere glow */}
+          {/* Atmosphere glow - subtle, no visible border */}
           <div
             className="absolute rounded-full"
             style={{
-              inset: "-4%",
-              background: "radial-gradient(circle, hsla(200,80%,60%,0.12) 60%, hsla(200,80%,60%,0.04) 75%, transparent 100%)",
+              inset: "-2%",
+              background: "radial-gradient(circle, transparent 48%, hsla(200,80%,60%,0.06) 50%, transparent 52%)",
               pointerEvents: "none",
             }}
           />

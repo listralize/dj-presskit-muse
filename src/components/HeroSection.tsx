@@ -114,12 +114,12 @@ const HeroSection = () => {
               alt="Unk DJ"
               className="w-full h-full object-cover rounded-sm"
             />
-            {/* Globe overlay - positioned over the planet in the photo window */}
+            {/* Globe overlay - aligned with the planet visible through the spaceship window */}
             <div
-              className="absolute z-10 pointer-events-none w-[180px] h-[180px] md:w-[220px] md:h-[220px] lg:w-[260px] lg:h-[260px]"
+              className="absolute z-10 pointer-events-none w-[120px] h-[120px] md:w-[150px] md:h-[150px] lg:w-[180px] lg:h-[180px] opacity-90"
               style={{
-                top: "-8%",
-                right: "-15%",
+                top: "3%",
+                right: "8%",
               }}
             >
               <Globe />
