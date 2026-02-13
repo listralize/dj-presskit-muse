@@ -56,8 +56,8 @@ const ContactSection = () => {
           transition={{ duration: 1.2, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          {/* UNK effect behind the DJ - raised 50px */}
-          <div className="absolute inset-0 z-[1] flex items-center justify-center opacity-15" style={{ marginTop: "-50px" }}>
+          {/* UNK effect behind the DJ - raised on desktop only */}
+          <div className="absolute inset-0 z-[1] flex items-center justify-center opacity-15 lg:mt-[-100px] mt-[-50px]">
             <UnkDjEffect className="h-32 md:h-48 text-white" speed={1.2} />
           </div>
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-background via-background/80 to-transparent h-[40%]" />
