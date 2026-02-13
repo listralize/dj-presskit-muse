@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useRef } from "react";
-import { X, Download, Mic, Speaker, Flame, Wind, Sparkles, Wine, Droplets, Pizza } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { X, Download, Mic, Speaker, Flame, Sparkles, Wine, Droplets, Pizza, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.png";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 interface RiderOverlayProps {
   isOpen: boolean;
@@ -10,7 +12,8 @@ interface RiderOverlayProps {
 
 const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
   const overlayRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const pdfContentRef = useRef<HTMLDivElement>(null);
+  const [generating, setGenerating] = useState(false);
 
   const handleClose = useCallback(() => {
     onClose();
@@ -29,13 +32,49 @@ const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
     };
   }, [isOpen, handleClose]);
 
-  const handleDownloadPDF = () => {
-    const a = document.createElement("a");
-    a.href = "/downloads/Rider_Tecnico_UNK_DJ.pdf";
-    a.download = "Rider_Tecnico_UNK_DJ.pdf";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+  const handleDownloadPDF = async () => {
+    if (!pdfContentRef.current || generating) return;
+    setGenerating(true);
+    try {
+      const element = pdfContentRef.current;
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: "#05070a",
+      });
+
+      const imgWidth = 210;
+      const pageHeight = 297;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      const pdf = new jsPDF("p", "mm", "a4");
+      // Fill background
+      pdf.setFillColor(5, 7, 10);
+      pdf.rect(0, 0, imgWidth, pageHeight, "F");
+
+      const imgData = canvas.toDataURL("image/png");
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.setFillColor(5, 7, 10);
+        pdf.rect(0, 0, imgWidth, pageHeight, "F");
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save("Rider_Tecnico_UNK_DJ.pdf");
+    } catch (err) {
+      console.error("PDF generation error:", err);
+    } finally {
+      setGenerating(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -43,48 +82,48 @@ const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto py-8 px-4"
+      className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto py-8 px-4"
       onClick={handleClose}
-      style={{
-        animation: "fadeIn 400ms cubic-bezier(0.16, 1, 0.3, 1)",
-      }}
+      style={{ animation: "riderFadeIn 400ms cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
-      <div className="absolute inset-0 bg-background/90 backdrop-blur-xl" />
+      <div className="absolute inset-0 bg-background/95 backdrop-blur-xl" />
 
       {/* Close */}
       <button
         onClick={(e) => { e.stopPropagation(); handleClose(); }}
-        className="fixed top-5 right-5 z-[60] flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 backdrop-blur-md border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-300"
+        className="fixed top-5 right-5 z-[110] flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 backdrop-blur-md border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all duration-300"
       >
         <X className="h-4 w-4" strokeWidth={2.5} />
       </button>
 
-      {/* Content */}
+      {/* PDF-capturable content */}
       <div
-        ref={contentRef}
+        ref={pdfContentRef}
         className="relative z-10 w-full max-w-2xl"
         onClick={(e) => e.stopPropagation()}
         style={{
-          animation: "slideUp 500ms cubic-bezier(0.16, 1, 0.3, 1)",
+          animation: "riderSlideUp 500ms cubic-bezier(0.16, 1, 0.3, 1)",
+          backgroundColor: "#05070a",
+          padding: "32px 16px",
         }}
       >
         {/* Header */}
         <div className="text-center mb-10">
           <img src={logo} alt="UNK DJ" className="w-16 mx-auto mb-6 opacity-80" />
-          <h2 className="text-3xl md:text-4xl font-display tracking-wider text-foreground mb-2"
+          <h2 className="text-3xl md:text-4xl font-display tracking-wider text-white mb-2"
             style={{ textShadow: "0 0 30px rgba(255,255,255,0.15)" }}>
             RIDER TÉCNICO
           </h2>
-          <div className="w-16 h-[1px] bg-foreground/20 mx-auto mt-4" />
+          <div className="w-16 h-[1px] bg-white/20 mx-auto mt-4" />
         </div>
 
-        {/* Rider Técnico */}
+        {/* Sections */}
         <div className="space-y-8">
           {/* Sonorização */}
-          <div className="backdrop-blur-sm bg-card/30 border border-border/40 rounded-2xl p-6 md:p-8">
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 md:p-8">
             <div className="flex items-center gap-3 mb-5">
-              <Speaker size={18} className="text-foreground/60" />
-              <h3 className="text-sm tracking-[0.3em] uppercase text-foreground/80 font-display">Sonorização</h3>
+              <Speaker size={18} className="text-white/60" />
+              <h3 className="text-sm tracking-[0.3em] uppercase text-white/80 font-display">Sonorização</h3>
             </div>
             <ul className="space-y-3">
               {[
@@ -94,8 +133,8 @@ const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
                 "Cabo de rede para link das CDJ's",
                 "1 Praticável para CDJ",
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-foreground/60">
-                  <span className="w-1 h-1 rounded-full bg-foreground/30 mt-2 shrink-0" />
+                <li key={i} className="flex items-start gap-3 text-sm text-white/60">
+                  <span className="w-1 h-1 rounded-full bg-white/30 mt-2 shrink-0" />
                   {item}
                 </li>
               ))}
@@ -103,10 +142,10 @@ const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
           </div>
 
           {/* Palco */}
-          <div className="backdrop-blur-sm bg-card/30 border border-border/40 rounded-2xl p-6 md:p-8">
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 md:p-8">
             <div className="flex items-center gap-3 mb-5">
-              <Mic size={18} className="text-foreground/60" />
-              <h3 className="text-sm tracking-[0.3em] uppercase text-foreground/80 font-display">Palco & Equipamentos</h3>
+              <Mic size={18} className="text-white/60" />
+              <h3 className="text-sm tracking-[0.3em] uppercase text-white/80 font-display">Palco & Equipamentos</h3>
             </div>
             <ul className="space-y-3">
               {[
@@ -114,8 +153,8 @@ const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
                 "Espaço de 2M entre praticável à beira do palco para os dançarinos",
                 "Tudo em perfeito estado de funcionamento",
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-foreground/60">
-                  <span className="w-1 h-1 rounded-full bg-foreground/30 mt-2 shrink-0" />
+                <li key={i} className="flex items-start gap-3 text-sm text-white/60">
+                  <span className="w-1 h-1 rounded-full bg-white/30 mt-2 shrink-0" />
                   {item}
                 </li>
               ))}
@@ -123,10 +162,10 @@ const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
           </div>
 
           {/* Pirotecnia */}
-          <div className="backdrop-blur-sm bg-card/30 border border-border/40 rounded-2xl p-6 md:p-8">
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 md:p-8">
             <div className="flex items-center gap-3 mb-5">
-              <Flame size={18} className="text-foreground/60" />
-              <h3 className="text-sm tracking-[0.3em] uppercase text-foreground/80 font-display">Pirotecnia</h3>
+              <Flame size={18} className="text-white/60" />
+              <h3 className="text-sm tracking-[0.3em] uppercase text-white/80 font-display">Pirotecnia</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {[
@@ -135,22 +174,22 @@ const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
                 { label: "Papel", detail: "3 Cenas (6 Unidades / 2 Pontos)" },
                 { label: "CO2", detail: "2 Bicos CO2 + 2 Cilindros min. 33kg" },
               ].map((item, i) => (
-                <div key={i} className="bg-background/30 rounded-xl p-4 border border-border/20">
-                  <p className="text-xs tracking-[0.2em] uppercase text-foreground/50 mb-1">{item.label}</p>
-                  <p className="text-sm text-foreground/70">{item.detail}</p>
+                <div key={i} className="bg-white/[0.03] rounded-xl p-4 border border-white/[0.06]">
+                  <p className="text-xs tracking-[0.2em] uppercase text-white/40 mb-1">{item.label}</p>
+                  <p className="text-sm text-white/70">{item.detail}</p>
                 </div>
               ))}
             </div>
-            <p className="text-xs text-foreground/40 mt-4 italic">
+            <p className="text-xs text-white/30 mt-4 italic">
               Conferidos e disponibilizados antes do início da apresentação.
             </p>
           </div>
 
           {/* Camarim */}
-          <div className="backdrop-blur-sm bg-card/30 border border-border/40 rounded-2xl p-6 md:p-8">
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 md:p-8">
             <div className="flex items-center gap-3 mb-5">
-              <Wine size={18} className="text-foreground/60" />
-              <h3 className="text-sm tracking-[0.3em] uppercase text-foreground/80 font-display">Rider de Camarim</h3>
+              <Wine size={18} className="text-white/60" />
+              <h3 className="text-sm tracking-[0.3em] uppercase text-white/80 font-display">Rider de Camarim</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {[
@@ -165,8 +204,8 @@ const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
                 { icon: Pizza, text: "1 Tábua de Frios (queijo, azeitona, castanhas)" },
                 { icon: Droplets, text: "1 Fardo de Água sem gás 500ml (mín. 12un.)" },
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3 text-sm text-foreground/60">
-                  <item.icon size={14} className="text-foreground/30 shrink-0" />
+                <div key={i} className="flex items-center gap-3 text-sm text-white/60">
+                  <item.icon size={14} className="text-white/30 shrink-0" />
                   {item.text}
                 </div>
               ))}
@@ -174,38 +213,40 @@ const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
           </div>
 
           {/* Contato */}
-          <div className="backdrop-blur-sm bg-card/30 border border-border/40 rounded-2xl p-6 md:p-8">
-            <p className="text-xs tracking-[0.2em] uppercase text-foreground/40 mb-4">Contato</p>
-            <div className="space-y-2 text-sm text-foreground/60">
-              <p><span className="text-foreground/40">Produtor Geral:</span> 62 99924-8754 — Lael Vieira</p>
-              <p><span className="text-foreground/40">Assessoria:</span> 62 98287-5284 — João</p>
+          <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6 md:p-8">
+            <p className="text-xs tracking-[0.2em] uppercase text-white/40 mb-4">Contato</p>
+            <div className="space-y-2 text-sm text-white/60">
+              <p><span className="text-white/40">Produtor Geral:</span> 62 99924-8754 — Lael Vieira</p>
+              <p><span className="text-white/40">Assessoria:</span> 62 98287-5284 — João</p>
             </div>
           </div>
         </div>
 
         {/* Download Button */}
-        <div className="flex justify-center mt-10 mb-8">
+        <div className="flex justify-center mt-10 mb-4">
           <button
-            onClick={handleDownloadPDF}
+            onClick={(e) => { e.stopPropagation(); handleDownloadPDF(); }}
+            disabled={generating}
             className={cn(
               "flex items-center gap-3 px-8 py-3.5",
-              "border border-foreground/20 text-foreground hover:bg-foreground/5",
-              "text-sm tracking-[0.2em] uppercase transition-all duration-300 rounded-lg"
+              "border border-white/20 text-white hover:bg-white/5",
+              "text-sm tracking-[0.2em] uppercase transition-all duration-300 rounded-lg",
+              "disabled:opacity-50 disabled:cursor-wait"
             )}
             style={{ textShadow: "0 0 8px rgba(255,255,255,0.3)" }}
           >
-            <Download size={16} />
-            Baixar Rider em PDF
+            {generating ? <Loader2 size={16} className="animate-spin" /> : <Download size={16} />}
+            {generating ? "Gerando PDF..." : "Baixar Rider em PDF"}
           </button>
         </div>
       </div>
 
       <style>{`
-        @keyframes fadeIn {
+        @keyframes riderFadeIn {
           from { opacity: 0; }
           to { opacity: 1; }
         }
-        @keyframes slideUp {
+        @keyframes riderSlideUp {
           from { opacity: 0; transform: translateY(30px) scale(0.97); }
           to { opacity: 1; transform: translateY(0) scale(1); }
         }
