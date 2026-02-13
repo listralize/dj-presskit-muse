@@ -102,21 +102,6 @@ const HeroSection = () => {
       <div className="relative z-10 flex flex-col items-center pt-10 pb-4 gap-1">
         <div className="relative inline-flex items-center justify-center">
           <UnkDjEffect className="h-16 md:h-20 text-white" speed={0.8} />
-          {/* DJ overlaid on the K letter */}
-          <motion.span
-            className="absolute text-white font-light tracking-[0.4em] uppercase"
-            style={{
-              right: "2%",
-              fontSize: "clamp(7px, 1.2vw, 11px)",
-              textShadow: "0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.25)",
-              bottom: "15%",
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.9 }}
-            transition={{ duration: 1.2, delay: 4.5 }}
-          >
-            DJ
-          </motion.span>
         </div>
         <p
           className="text-[10px] md:text-xs text-white/80 tracking-[0.35em] uppercase font-light text-center mt-3"
