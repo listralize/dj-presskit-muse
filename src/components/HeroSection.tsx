@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import djPhoto from "@/assets/dj-photo.png";
 import logo from "@/assets/logo.png";
+import Globe from "@/components/ui/globe";
 import { Instagram, Youtube, Music, MessageCircle, User, Phone, Calendar, MessageSquare, ChevronDown } from "lucide-react";
 
 const formSchema = z.object({
@@ -94,7 +95,20 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col">
+    <section className="relative min-h-screen flex flex-col overflow-hidden">
+      {/* Globe background */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div
+          className="absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] lg:w-[800px] lg:h-[800px] opacity-20"
+          style={{
+            top: "50%",
+            right: "-10%",
+            transform: "translateY(-50%)",
+          }}
+        >
+          <Globe />
+        </div>
+      </div>
       {/* Logo + Legenda */}
       <div className="relative z-10 flex flex-col items-center pt-10 pb-4 gap-3">
         <img src={logo} alt="Unk DJ Logo" className="w-28 md:w-36" />
