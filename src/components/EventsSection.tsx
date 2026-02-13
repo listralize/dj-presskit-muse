@@ -12,28 +12,31 @@ const events = [
 
 const EventsSection = () => {
   return (
-    <section className="py-24 bg-gradient-dark">
+    <section className="py-28">
       <div className="container mx-auto px-6">
-        <h2 className="text-5xl md:text-6xl font-display text-primary text-glow mb-14 text-center">
-          Eventos em Destaque
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="flex flex-col items-center gap-4 mb-16">
+          <div className="line-separator" />
+          <h2 className="text-5xl md:text-6xl font-display text-foreground tracking-wider">
+            Eventos
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {events.map((event) => (
             <div
               key={event.name}
-              className="group relative overflow-hidden rounded-xl aspect-[4/3]"
+              className="group relative overflow-hidden aspect-[4/3]"
             >
               <img
                 src={event.img}
                 alt={event.name}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
               <div className="absolute bottom-0 left-0 p-5">
-                <h3 className="text-xl font-display text-foreground tracking-wide">
+                <h3 className="text-lg font-display text-foreground tracking-wide">
                   {event.name}
                 </h3>
-                <p className="text-sm text-muted-foreground">{event.location}</p>
+                <p className="text-xs text-muted-foreground mt-1">{event.location}</p>
               </div>
             </div>
           ))}
