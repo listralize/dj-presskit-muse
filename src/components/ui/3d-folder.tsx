@@ -88,7 +88,7 @@ export function AnimatedFolder({
           className="absolute inset-0 rounded-2xl transition-opacity duration-500"
           style={{
             background:
-              "radial-gradient(circle at 50% 70%, hsl(var(--folder-tab)) 0%, transparent 70%)",
+              "radial-gradient(circle at 50% 70%, hsl(0 0% 55%) 0%, transparent 70%)",
             opacity: isOpened ? 0.08 : 0,
           }}
         />
@@ -102,7 +102,7 @@ export function AnimatedFolder({
           <div
             className="absolute h-24 w-32 rounded-[10px] shadow-md"
             style={{
-              backgroundColor: "hsl(var(--folder-back))",
+              background: "linear-gradient(145deg, hsl(0 0% 38%), hsl(0 0% 28%))",
               transformOrigin: "bottom center",
               transform: isOpened ? "rotateX(-15deg)" : "rotateX(0deg)",
               transition: "transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1)",
@@ -114,7 +114,7 @@ export function AnimatedFolder({
           <div
             className="absolute h-4 w-12 rounded-t-[7px]"
             style={{
-              backgroundColor: "hsl(var(--folder-tab))",
+              background: "linear-gradient(145deg, hsl(0 0% 58%), hsl(0 0% 45%))",
               top: "calc(50% - 48px - 12px)",
               left: "calc(50% - 64px + 2px)",
               transformOrigin: "bottom center",
@@ -157,7 +157,7 @@ export function AnimatedFolder({
           <div
             className="absolute h-24 w-32 rounded-[10px] shadow-lg"
             style={{
-              backgroundColor: "hsl(var(--folder-front))",
+              background: "linear-gradient(145deg, hsl(0 0% 50%), hsl(0 0% 36%))",
               top: "calc(50% - 48px + 4px)",
               transformOrigin: "bottom center",
               transform: isOpened
@@ -174,7 +174,7 @@ export function AnimatedFolder({
             style={{
               top: "calc(50% - 48px + 4px)",
               background:
-                "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%)",
+                "linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.05) 40%, transparent 60%)",
               transformOrigin: "bottom center",
               transform: isOpened
                 ? "rotateX(25deg) translateY(8px)"

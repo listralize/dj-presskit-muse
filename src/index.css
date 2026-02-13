@@ -45,9 +45,9 @@
     --sidebar-border: 220 12% 12%;
     --sidebar-ring: 210 25% 72%;
 
-    --folder-back: 210 25% 28%;
-    --folder-front: 210 22% 35%;
-    --folder-tab: 210 20% 40%;
+    --folder-back: 0 0% 32%;
+    --folder-front: 0 0% 42%;
+    --folder-tab: 0 0% 52%;
   }
 }
 
