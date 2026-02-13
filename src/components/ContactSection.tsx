@@ -41,32 +41,32 @@ const ContactSection = () => {
           </div>
 
           {/* Right - Motion image */}
-          <div className="relative flex justify-center items-end h-[400px] md:h-[500px] overflow-hidden rounded-xl">
-            {/* Background image with subtle zoom */}
-            <motion.img
+          <div className="relative flex justify-center items-center h-[400px] md:h-[500px] overflow-hidden rounded-xl">
+            {/* Background image */}
+            <img
               src={djStageBg}
               alt="DJ Unk no palco"
               className="absolute inset-0 w-full h-full object-cover rounded-xl"
-              initial={{ scale: 1.1 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 8, ease: "easeOut" }}
             />
             {/* Dark overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent rounded-xl" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent rounded-xl" />
 
-            {/* PNG cutout floating */}
-            <motion.img
-              src={djCutout}
-              alt="DJ Unk"
-              className="relative z-10 w-full h-full object-cover object-top drop-shadow-2xl rounded-xl"
-              initial={{ y: 40, opacity: 0 }}
-              whileInView={{ y: [40, 0, -8, 0], opacity: 1 }}
-              transition={{ 
-                y: { duration: 4, repeat: Infinity, repeatDelay: 0, times: [0, 0.15, 0.575, 1], ease: "easeInOut" },
-                opacity: { duration: 1, ease: "easeOut" },
-              }}
+            {/* PNG cutout with glow pulse effect, no movement */}
+            <motion.div
+              className="absolute inset-0 z-10 flex items-end justify-center"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
               viewport={{ once: true }}
-            />
+            >
+              <motion.img
+                src={djCutout}
+                alt="DJ Unk"
+                className="w-full h-full object-cover object-top rounded-xl"
+                animate={{ filter: ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 20px rgba(255,255,255,0.25))", "drop-shadow(0 0 0px rgba(255,255,255,0))"] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </motion.div>
           </div>
         </div>
 
