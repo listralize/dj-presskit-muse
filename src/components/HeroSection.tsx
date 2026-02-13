@@ -19,7 +19,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-const WHATSAPP_NUMBER = "5500000000000";
+const WHATSAPP_NUMBER = "5562934755284";
 
 const eventTypes = ["Festa", "Festival", "Casamento", "Boate/Club", "Outro"];
 
