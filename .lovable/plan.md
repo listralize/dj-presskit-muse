@@ -1,38 +1,66 @@
 
 
-## Plano: Globo mobile + Fotos na pasta + Download
+## Remover todas as referências ao Lovable e preparar para deploy na Coolify
 
-### 1. Subir o globo 15px no mobile
+### O que será feito
 
-No `HeroSection.tsx` linha 133, o globo no mobile tem `top-[calc(24%+14px)]`. Sera ajustado para `top-[calc(24%-1px)]` (14px - 15px = -1px).
+1. **index.html** - Substituir todos os textos e metadados "Lovable" por "UNK DJ" / "Listralize":
+   - Title: "UNK DJ - Press Kit"
+   - Description, author, og:title, og:description atualizados
+   - Remover imagens og/twitter que apontam para lovable.dev
+   - Remover twitter:site @Lovable
+   - Remover comentários TODO
 
-### 2. Adicionar as 7 fotos na pasta "Fotos"
+2. **vite.config.ts** - Remover o import e uso do `lovable-tagger`:
+   - Remover `import { componentTagger } from "lovable-tagger"`
+   - Remover `componentTagger()` dos plugins
 
-- Copiar as 7 imagens enviadas para `public/photos/` (usando public/ para que os arquivos fiquem acessiveis via URL direta para download sem compressao)
-- Atualizar `fotosData` no `ContactSection.tsx` com os caminhos das 7 fotos reais
+3. **package.json** - Remover `lovable-tagger` das devDependencies
 
-### 3. Botao "Baixar todos" na pasta
+4. **README.md** - Reescrever completamente removendo todas as menções ao Lovable, com instruções genéricas de build/deploy
 
-- Adicionar um botao "Baixar todos" no componente `AnimatedFolder` que aparece quando a pasta esta aberta
-- Receber uma prop opcional `downloadFiles` com array de URLs dos arquivos originais
-- Ao clicar, faz download sequencial de cada arquivo usando `<a download>` apontando para o caminho em `/photos/` -- sem compressao, qualidade maxima original
-- Como os arquivos estao no `public/`, o download sera do arquivo original sem nenhum processamento
+5. **Adicionar Dockerfile** para deploy na Coolify:
+   - Multi-stage build: Node para build, Nginx para servir
+   - Configuracao nginx para SPA (fallback para index.html)
 
-### Detalhes tecnicos
+6. **Adicionar nginx.conf** com configuracao otimizada para SPA
 
-**Arquivos modificados:**
-- `src/components/HeroSection.tsx` -- ajustar top do globo mobile
-- `src/components/ContactSection.tsx` -- atualizar fotosData com 7 fotos reais + passar prop downloadFiles
-- `src/components/ui/3d-folder.tsx` -- adicionar prop `downloadFiles` e botao de download
+### Detalhes Técnicos
 
-**Arquivos criados:**
-- `public/photos/DSC01978.jpg` (copia)
-- `public/photos/DSC01866.jpg` (copia)
-- `public/photos/DSC01883.jpg` (copia)
-- `public/photos/DSC01891.jpg` (copia)
-- `public/photos/DSC01905.jpg` (copia)
-- `public/photos/DSC01916.jpg` (copia)
-- `public/photos/DSC01959.jpg` (copia)
+**Dockerfile:**
+```dockerfile
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
 
-**Logica de download:** Cada arquivo sera baixado individualmente via `fetch` + `blob` + `URL.createObjectURL` + `<a download>` para garantir que o navegador faca download e nao abra a imagem. Sem zip, sem compressao.
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+```
+
+**nginx.conf:**
+```nginx
+server {
+    listen 80;
+    root /usr/share/nginx/html;
+    index index.html;
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+### Arquivos alterados
+- `index.html` - metadados atualizados
+- `vite.config.ts` - remover lovable-tagger
+- `package.json` - remover lovable-tagger
+- `README.md` - reescrito
+
+### Arquivos criados
+- `Dockerfile` - build multi-stage para Coolify
+- `nginx.conf` - configuracao do servidor
 
