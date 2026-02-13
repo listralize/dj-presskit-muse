@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import djPhoto from "@/assets/dj-photo.png";
+import djPhoto from "@/assets/dj-hero-banner.png";
 import logo from "@/assets/logo.png";
 import Globe from "@/components/ui/globe";
 import { UnkDjEffect } from "@/components/ui/text-effect";
