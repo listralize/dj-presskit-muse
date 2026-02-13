@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -99,19 +100,23 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex flex-col overflow-hidden">
       {/* Logo + DJ + Legenda */}
       <div className="relative z-10 flex flex-col items-center pt-10 pb-4 gap-1">
-        <div className="relative flex flex-col items-center">
+        <div className="relative inline-flex items-center justify-center">
           <UnkDjEffect className="h-16 md:h-20 text-white" speed={0.8} />
-          {/* DJ text centered under the K */}
-          <span
-            className="text-white/90 text-[10px] md:text-xs font-light tracking-[0.5em] uppercase"
+          {/* DJ overlaid on the K letter */}
+          <motion.span
+            className="absolute text-white font-light tracking-[0.4em] uppercase"
             style={{
-              marginTop: "-2px",
-              marginRight: "-80px",
-              textShadow: "0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(255,255,255,0.2)",
+              right: "2%",
+              fontSize: "clamp(7px, 1.2vw, 11px)",
+              textShadow: "0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.25)",
+              bottom: "15%",
             }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.9 }}
+            transition={{ duration: 1.2, delay: 4.5 }}
           >
             DJ
-          </span>
+          </motion.span>
         </div>
         <p
           className="text-[10px] md:text-xs text-white/80 tracking-[0.35em] uppercase font-light text-center mt-3"
