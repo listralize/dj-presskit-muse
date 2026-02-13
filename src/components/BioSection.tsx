@@ -15,12 +15,12 @@ const BioSection = () => {
           </div>
 
           {/* Right content */}
-          <div className="md:col-span-8 space-y-6 text-muted-foreground text-base leading-relaxed font-light">
+          <div className="md:col-span-8 space-y-6 text-foreground/80 text-base leading-relaxed font-light">
             <p>
-              Marcelo Filho, nome por trás de <span className="text-foreground font-medium">Unk DJ</span>, é um dos grandes produtores do gênero em ascensão em diversos estados do Brasil. Reconhecido por transformar energia em ritmo, o artista se destaca pela autenticidade sonora e por produções marcantes, fortemente influenciadas pelo house music.
+              Marcelo Filho, nome por trás de <span className="text-yellow-400 font-medium" style={{ textShadow: "0 0 10px rgba(250,204,21,0.3)" }}>Unk DJ</span>, é um dos grandes produtores do gênero em ascensão em diversos estados do Brasil. Reconhecido por transformar energia em ritmo, o artista se destaca pela autenticidade sonora e por produções marcantes, fortemente influenciadas pelo house music.
             </p>
             <p>
-              Natural de Quirinópolis (GO), despertou seu interesse pela música eletrônica aos 17 anos e, após anos de dedicação e estudo em produção musical, consolidou seu nome no cenário com lançamentos expressivos. Entre eles, destaca-se o hit <span className="text-foreground font-medium">"Rock This"</span>, em colaboração com Vinicius Cavalcante, que ultrapassou a marca de 1 milhão de plays.
+              Natural de Quirinópolis (GO), despertou seu interesse pela música eletrônica aos 17 anos e, após anos de dedicação e estudo em produção musical, consolidou seu nome no cenário com lançamentos expressivos. Entre eles, destaca-se o hit <span className="text-yellow-400 font-medium" style={{ textShadow: "0 0 10px rgba(250,204,21,0.3)" }}>"Rock This"</span>, em colaboração com Vinicius Cavalcante, que ultrapassou a marca de 1 milhão de plays.
             </p>
             <p>
               Com uma sonoridade vibrante, batidas impactantes e visão artística moderna, Unk DJ segue expandindo seu projeto, conectando pista e conceito em cada produção.
