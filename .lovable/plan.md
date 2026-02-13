@@ -1,28 +1,30 @@
 
+# Redesign do Globe para Match com Ruixen UI
 
-# Corrigir globo: cor azul claro, maior, reposicionado
+## O que muda
 
-## Problema
-O globo esta escuro demais, pequeno demais, e mal posicionado. Pela foto de referencia, o planeta:
-- Tem cor **azul claro tipo piscina** (nao escuro)
-- E **grande** -- ocupa boa parte do canto superior direito
-- Fica com **metade para fora da foto**, quase chegando no formulario
-- Esta mais **para baixo e para a direita** do que esta agora
+O globo atual usa uma textura local (`earth-texture.jpg`) com animacao simples. O design de referencia (Ruixen UI) tem um visual muito mais realista com:
 
-## Mudancas
+- **Sombra atmosferica com brilho azulado** (efeito de atmosfera terrestre)
+- **Textura da Terra com cores mais naturais** (usando imagem de alta qualidade)
+- **Inset shadows complexos** criando profundidade e efeito 3D
+- **Rotacao mais lenta** (30s vs 20s atual)
+- **Background position "left"** com background-size "cover"
 
-### 1. `src/components/ui/globe.tsx`
-- **Remover** o filtro `brightness(0.55) saturate(0.7)` que esta escurecendo tudo
-- **Adicionar** filtro com mais brilho e saturacao azul: `brightness(1.1) saturate(1.3) hue-rotate(-10deg)` para puxar o tom azul claro/piscina
-- Suavizar a sombra do terminator para nao escurecer tanto
+## Alteracoes tecnicas
 
-### 2. `src/components/HeroSection.tsx`
-- **Aumentar** o tamanho do globo significativamente: `w-[200px]` mobile, `w-[260px]` tablet, `w-[320px]` desktop
-- **Reposicionar**: `top: "5%"`, `right: "-20%"` (negativo para que metade fique para fora da foto, quase tocando o formulario)
-- **Remover `overflow-hidden`** do container da foto (se existir) para permitir que o globo vaze para fora
-- Manter `z-10` e `pointer-events-none`
+### `src/components/ui/globe.tsx`
+Reescrever o componente para replicar o design da Ruixen UI:
 
-### Arquivos
-1. `src/components/ui/globe.tsx` -- cor azul claro, remover escurecimento
-2. `src/components/HeroSection.tsx` -- globo maior, mais para baixo/direita, metade para fora
+1. **Remover** o import da textura local `earth-texture.jpg`
+2. **Usar** a textura publica da Ruixen UI (URL hospedada no r2.dev)
+3. **Aplicar box-shadow complexo** com multiplas camadas:
+   - Sombra externa com `rgba(255,255,255,0.2)` para o brilho atmosferico
+   - Inset shadows com tons de azul claro (`#c3f4ff`) e preto para profundidade
+4. **Remover** o overlay de dia/noite (o efeito de sombra ja esta embutido no box-shadow)
+5. **Ajustar animacao** para 30s e background-size "cover" com position "left"
+6. **Manter** as estrelas ao redor mas usar estilo `bg-white` ao inves de `bg-foreground/80`
+7. **Container**: usar `w-[250px] h-[250px]` como base com `overflow-hidden` e `shadow`
 
+### Nenhuma alteracao em `HeroSection.tsx`
+O posicionamento e tamanho do globo no Hero ja estao corretos e nao precisam mudar.
