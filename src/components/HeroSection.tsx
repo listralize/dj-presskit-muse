@@ -104,7 +104,7 @@ const HeroSection = () => {
           <UnkDjEffect className="h-16 md:h-20 text-white" speed={0.8} />
         </div>
         <p
-          className="text-[10px] md:text-xs text-white/80 tracking-[0.35em] uppercase font-light text-center mt-3"
+          className="text-[10px] md:text-xs text-white/80 tracking-[0.35em] uppercase font-light text-center mt-3 w-full max-w-md px-6"
           style={{
             textShadow: "0 0 15px rgba(255,255,255,0.4), 0 0 30px rgba(200,210,230,0.15)",
           }}
