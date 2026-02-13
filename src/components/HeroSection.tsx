@@ -130,28 +130,28 @@ const HeroSection = () => {
              />
             {/* Globe overlay - aligned with the planet visible through the spaceship window */}
             <div
-               className="absolute z-10 pointer-events-none w-[130px] h-[130px] md:w-[180px] md:h-[180px] lg:w-[230px] lg:h-[230px] top-[calc(24%-1px)] md:top-[calc(24%+9px)] lg:top-[calc(24%-3px)] right-[calc(-30%+10px)]"
+               className="absolute z-10 pointer-events-none w-[130px] h-[130px] md:w-[180px] md:h-[180px] lg:w-[230px] lg:h-[230px] top-[calc(24%-1px)] md:top-[calc(24%+9px)] lg:top-[calc(24%-13px)] right-[calc(-30%+10px)]"
             >
               <Globe />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-background/20" />
             {/* Social links over photo bottom */}
-            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-5">
+             <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-5">
               {[
-                { href: "https://instagram.com", Icon: Instagram },
-                { href: "https://youtube.com", Icon: Youtube },
-                { href: "https://spotify.com", Icon: Music },
-              ].map(({ href, Icon }) => (
-                <a
-                  key={href}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/60 hover:text-foreground transition-colors duration-300"
-                >
-                  <Icon size={18} />
-                </a>
-              ))}
+                 { href: "https://www.instagram.com/unkmusic_", Icon: Instagram },
+                 { href: "https://www.youtube.com/@unkdj", Icon: Youtube },
+                 { href: "https://open.spotify.com/artist/4GZKpcqZUxiPZXkV0Y8qI1?si=78y9xYfYQl2z9i_5jaisJg", Icon: Music },
+               ].map(({ href, Icon }) => (
+                 <a
+                   key={href}
+                   href={href}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   className="text-foreground/60 hover:text-foreground transition-colors duration-300"
+                 >
+                   <Icon size={18} />
+                 </a>
+               ))}
             </div>
           </div>
         </div>

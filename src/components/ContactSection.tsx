@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import logo from "@/assets/logo.png";
 import djMoon from "@/assets/dj-moon.png";
 import { UnkDjEffect } from "@/components/ui/text-effect";
+import { Instagram, Youtube, Music } from "lucide-react";
 import { AnimatedFolder } from "@/components/ui/3d-folder";
 
 const fotosData = [
@@ -55,8 +56,8 @@ const ContactSection = () => {
           transition={{ duration: 1.2, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          {/* UNK effect behind the DJ */}
-          <div className="absolute inset-0 z-[1] flex items-center justify-center opacity-15">
+          {/* UNK effect behind the DJ - raised 50px */}
+          <div className="absolute inset-0 z-[1] flex items-center justify-center opacity-15" style={{ marginTop: "-50px" }}>
             <UnkDjEffect className="h-32 md:h-48 text-white" speed={1.2} />
           </div>
           <div className="absolute inset-0 z-10 bg-gradient-to-b from-background via-background/80 to-transparent h-[40%]" />
@@ -72,6 +73,23 @@ const ContactSection = () => {
         {/* Footer */}
         <div className="border-t border-border pt-8 mt-16 text-center">
           <img src={logo} alt="Unk DJ" className="w-12 mx-auto mb-4 opacity-30" />
+          <div className="flex justify-center gap-5 mb-4">
+            {[
+              { href: "https://www.instagram.com/unkmusic_", Icon: Instagram },
+              { href: "https://www.youtube.com/@unkdj", Icon: Youtube },
+              { href: "https://open.spotify.com/artist/4GZKpcqZUxiPZXkV0Y8qI1?si=78y9xYfYQl2z9i_5jaisJg", Icon: Music },
+            ].map(({ href, Icon }) => (
+              <a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground/40 hover:text-foreground/70 transition-colors duration-300"
+              >
+                <Icon size={16} />
+              </a>
+            ))}
+          </div>
           <p className="text-[10px] text-foreground/40 uppercase tracking-widest">
             © 2025 Unk DJ · Todos os direitos reservados
           </p>
