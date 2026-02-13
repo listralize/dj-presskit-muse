@@ -158,8 +158,26 @@ function UnkDjEffect({
           stroke="none" fill="currentColor"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }}
           transition={{ duration: calc(1.0), delay: calc(5.6), ease: "easeOut" }}
-          onAnimationComplete={handleComplete}
         />
+
+        {/* DJ text inside SVG, centered on K area */}
+        <motion.text
+          x="780"
+          y="240"
+          textAnchor="middle"
+          fill="currentColor"
+          stroke="none"
+          fontSize="32"
+          fontWeight="300"
+          letterSpacing="8"
+          style={{ fontFamily: "Inter, sans-serif", textTransform: "uppercase" }}
+          initial={{ opacity: 0, filter: "blur(6px)" }}
+          animate={{ opacity: 0.85, filter: "blur(0px)" }}
+          transition={{ duration: calc(1.2), delay: calc(5.8), ease: "easeOut" }}
+          onAnimationComplete={handleComplete}
+        >
+          DJ
+        </motion.text>
       </motion.svg>
     </AnimatePresence>
   );
