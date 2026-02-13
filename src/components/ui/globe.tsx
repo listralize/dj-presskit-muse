@@ -32,30 +32,20 @@ const Globe: React.FC = () => {
             }}
           />
 
-          {/* Atmosphere glow - subtle, no visible border */}
+          {/* Day/night terminator shadow - darker to match photo */}
           <div
-            className="absolute rounded-full"
+            className="absolute inset-0 rounded-full"
             style={{
-              inset: "-2%",
-              background: "radial-gradient(circle, transparent 48%, hsla(200,80%,60%,0.06) 50%, transparent 52%)",
+              background: "linear-gradient(120deg, transparent 30%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.85) 100%)",
               pointerEvents: "none",
             }}
           />
 
-          {/* Day/night terminator shadow */}
+          {/* Subtle specular highlight */}
           <div
             className="absolute inset-0 rounded-full"
             style={{
-              background: "linear-gradient(105deg, transparent 40%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.8) 100%)",
-              pointerEvents: "none",
-            }}
-          />
-
-          {/* Specular highlight */}
-          <div
-            className="absolute inset-0 rounded-full"
-            style={{
-              background: "radial-gradient(circle at 30% 25%, hsla(200,100%,90%,0.18), transparent 45%)",
+              background: "radial-gradient(circle at 35% 30%, hsla(200,80%,80%,0.1), transparent 40%)",
               pointerEvents: "none",
             }}
           />
