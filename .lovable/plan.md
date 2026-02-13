@@ -1,66 +1,30 @@
 
 
-## Remover todas as referências ao Lovable e preparar para deploy na Coolify
+## Fix: Form Input Conflict
 
-### O que será feito
+### Problem
+The `FloatingInput` component in `HeroSection.tsx` receives conflicting props:
+- `{...register("nome")}` -- react-hook-form's uncontrolled approach (provides `onChange`, `ref`, `name`)
+- `value={nome}` -- a controlled value from `watch("nome")`
 
-1. **index.html** - Substituir todos os textos e metadados "Lovable" por "UNK DJ" / "Listralize":
-   - Title: "UNK DJ - Press Kit"
-   - Description, author, og:title, og:description atualizados
-   - Remover imagens og/twitter que apontam para lovable.dev
-   - Remover twitter:site @Lovable
-   - Remover comentários TODO
+This controlled/uncontrolled conflict causes the input to behave unpredictably, especially on mobile devices. The user may be unable to type, or the input may appear to "fight" itself (appearing as if two forms are stacked).
 
-2. **vite.config.ts** - Remover o import e uso do `lovable-tagger`:
-   - Remover `import { componentTagger } from "lovable-tagger"`
-   - Remover `componentTagger()` dos plugins
+### Solution
+Switch from `register` to react-hook-form's `Controller` pattern for the inputs, making them properly controlled. This avoids the conflict entirely.
 
-3. **package.json** - Remover `lovable-tagger` das devDependencies
+### Technical Details
 
-4. **README.md** - Reescrever completamente removendo todas as menções ao Lovable, com instruções genéricas de build/deploy
+**File: `src/components/HeroSection.tsx`**
 
-5. **Adicionar Dockerfile** para deploy na Coolify:
-   - Multi-stage build: Node para build, Nginx para servir
-   - Configuracao nginx para SPA (fallback para index.html)
+1. Import `Controller` from `react-hook-form` and use `useForm`'s `control` property
+2. Refactor `FloatingInput` to accept `value` and `onChange` as standard controlled props (remove `register` spread)
+3. Wrap each input with `Controller` to properly bridge react-hook-form with controlled components
+4. For the custom select (tipoEvento), also use `Controller` with `setValue` for clean state management
+5. The textarea also needs the same Controller treatment
 
-6. **Adicionar nginx.conf** com configuracao otimizada para SPA
+Key changes:
+- `FloatingInput` will accept `value`, `onChange`, `onBlur` as explicit props instead of relying on register spread
+- Each form field wrapped in `<Controller control={control} name="fieldName" render={({field}) => <FloatingInput {...field} />} />`
+- Remove the conflicting `value={nome}` and `value={watch("dataEvento")}` explicit props since Controller handles this
 
-### Detalhes Técnicos
-
-**Dockerfile:**
-```dockerfile
-FROM node:20-alpine AS build
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-
-FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
-```
-
-**nginx.conf:**
-```nginx
-server {
-    listen 80;
-    root /usr/share/nginx/html;
-    index index.html;
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-```
-
-### Arquivos alterados
-- `index.html` - metadados atualizados
-- `vite.config.ts` - remover lovable-tagger
-- `package.json` - remover lovable-tagger
-- `README.md` - reescrito
-
-### Arquivos criados
-- `Dockerfile` - build multi-stage para Coolify
-- `nginx.conf` - configuracao do servidor
-
+This ensures a single source of truth for each input's value and eliminates the "two forms" behavior.
