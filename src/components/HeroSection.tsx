@@ -40,25 +40,25 @@ const FloatingInput = ({
 
   return (
     <div className="relative group">
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 text-muted-foreground/50 group-focus-within:text-primary transition-colors duration-300">
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 text-foreground/50 group-focus-within:text-primary transition-colors duration-300">
         <Icon size={16} />
       </div>
       <input
-        id={id}
-        {...props}
-        onFocus={(e) => { setFocused(true); props.onFocus?.(e); }}
-        onBlur={(e) => { setFocused(false); props.onBlur?.(e); }}
-        className="w-full bg-transparent border-b border-muted-foreground/20 focus:border-primary pl-7 pr-0 py-3 text-sm text-foreground outline-none transition-all duration-300 peer placeholder-transparent [&::-webkit-calendar-picker-indicator]:invert"
-        placeholder={label}
-      />
-      <label
-        htmlFor={id}
-        className={`absolute left-7 transition-all duration-300 pointer-events-none ${
-          focused || hasValue
-            ? "-top-1 text-[10px] tracking-widest uppercase text-primary/70"
-            : "top-3 text-sm text-muted-foreground/40"
-        }`}
-      >
+         id={id}
+         {...props}
+         onFocus={(e) => { setFocused(true); props.onFocus?.(e); }}
+         onBlur={(e) => { setFocused(false); props.onBlur?.(e); }}
+         className="w-full bg-transparent border-b border-foreground/20 focus:border-primary pl-7 pr-0 py-3 text-sm text-foreground outline-none transition-all duration-300 peer placeholder-transparent [&::-webkit-calendar-picker-indicator]:invert"
+         placeholder={label}
+       />
+       <label
+         htmlFor={id}
+         className={`absolute left-7 transition-all duration-300 pointer-events-none ${
+           focused || hasValue
+             ? "-top-1 text-[10px] tracking-widest uppercase text-primary"
+             : "top-3 text-sm text-foreground/50"
+         }`}
+       >
         {label}
       </label>
       {error && <p className="text-[11px] text-destructive/80 mt-1.5 pl-7">{error}</p>}
@@ -118,11 +118,12 @@ const HeroSection = () => {
         {/* DJ Photo */}
         <div className="lg:w-5/12 flex justify-center">
            <div className="relative w-64 md:w-80 lg:w-96 aspect-[3/4] rounded-sm overflow-visible">
-            <img
-              src={djPhoto}
-              alt="Unk DJ"
-              className="w-full h-full object-cover rounded-sm"
-            />
+        <img
+               src={djPhoto}
+               alt="Unk DJ"
+               className="w-full h-full object-cover rounded-sm"
+               style={{ marginTop: "-4px" }}
+             />
             {/* Globe overlay - aligned with the planet visible through the spaceship window */}
             <div
               className="absolute z-10 pointer-events-none w-[130px] h-[130px] md:w-[180px] md:h-[180px] lg:w-[230px] lg:h-[230px]"
@@ -171,92 +172,92 @@ const HeroSection = () => {
             </h2>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <FloatingInput
-              id="nome"
-              label="Seu nome"
-              icon={User}
-              error={errors.nome?.message}
-              {...register("nome")}
-              value={nome}
-            />
+           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 backdrop-blur-sm bg-card/30 border border-border/40 rounded-2xl p-6 md:p-8">
+             <FloatingInput
+               id="nome"
+               label="Seu nome"
+               icon={User}
+               error={errors.nome?.message}
+               {...register("nome")}
+               value={nome}
+             />
 
-            <FloatingInput
-              id="telefone"
-              label="Telefone / WhatsApp"
-              icon={Phone}
-              error={errors.telefone?.message}
-              {...register("telefone")}
-              value={watch("telefone")}
-            />
+             <FloatingInput
+               id="telefone"
+               label="Telefone / WhatsApp"
+               icon={Phone}
+               error={errors.telefone?.message}
+               {...register("telefone")}
+               value={watch("telefone")}
+             />
 
-            {/* Custom select */}
-            <div className="relative group">
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 text-muted-foreground/50 group-focus-within:text-primary transition-colors duration-300">
-                <MessageSquare size={16} />
-              </div>
-              <button
-                type="button"
-                onClick={() => setSelectOpen(!selectOpen)}
-                className="w-full bg-transparent border-b border-muted-foreground/20 focus:border-primary pl-7 pr-6 py-3 text-sm text-left outline-none transition-all duration-300 flex items-center justify-between"
-              >
-                <span className={tipoEvento ? "text-foreground" : "text-muted-foreground/40"}>
-                  {tipoEvento || "Tipo de evento"}
-                </span>
-                <ChevronDown size={14} className={`text-muted-foreground/40 transition-transform duration-200 ${selectOpen ? "rotate-180" : ""}`} />
-              </button>
-              {selectOpen && (
-                <div className="absolute z-20 top-full left-0 right-0 mt-1 bg-card border border-border rounded-sm overflow-hidden">
-                  {eventTypes.map((type) => (
-                    <button
-                      key={type}
-                      type="button"
-                      onClick={() => {
-                        register("tipoEvento").onChange({ target: { name: "tipoEvento", value: type } });
-                        setSelectOpen(false);
-                      }}
-                      className="w-full px-7 py-2.5 text-sm text-left text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors duration-200"
-                    >
-                      {type}
-                    </button>
-                  ))}
-                </div>
-              )}
-              {errors.tipoEvento && <p className="text-[11px] text-destructive/80 mt-1.5 pl-7">{errors.tipoEvento.message}</p>}
-            </div>
+             {/* Custom select */}
+             <div className="relative group">
+               <div className="absolute left-0 top-1/2 -translate-y-1/2 text-foreground/50 group-focus-within:text-primary transition-colors duration-300">
+                 <MessageSquare size={16} />
+               </div>
+               <button
+                 type="button"
+                 onClick={() => setSelectOpen(!selectOpen)}
+                 className="w-full bg-transparent border-b border-foreground/20 focus:border-primary pl-7 pr-6 py-3 text-sm text-left outline-none transition-all duration-300 flex items-center justify-between"
+               >
+                 <span className={tipoEvento ? "text-foreground" : "text-foreground/50"}>
+                   {tipoEvento || "Tipo de evento"}
+                 </span>
+                 <ChevronDown size={14} className={`text-foreground/50 transition-transform duration-200 ${selectOpen ? "rotate-180" : ""}`} />
+               </button>
+               {selectOpen && (
+                 <div className="absolute z-20 top-full left-0 right-0 mt-1 bg-card border border-border rounded-sm overflow-hidden">
+                   {eventTypes.map((type) => (
+                     <button
+                       key={type}
+                       type="button"
+                       onClick={() => {
+                         register("tipoEvento").onChange({ target: { name: "tipoEvento", value: type } });
+                         setSelectOpen(false);
+                       }}
+                       className="w-full px-7 py-2.5 text-sm text-left text-foreground/70 hover:text-foreground hover:bg-accent/50 transition-colors duration-200"
+                     >
+                       {type}
+                     </button>
+                   ))}
+                 </div>
+               )}
+               {errors.tipoEvento && <p className="text-[11px] text-destructive mt-1.5 pl-7">{errors.tipoEvento.message}</p>}
+             </div>
 
-            <FloatingInput
-              id="dataEvento"
-              label="Data do evento"
-              icon={Calendar}
-              type="date"
-              {...register("dataEvento")}
-              value={watch("dataEvento")}
-            />
+             <FloatingInput
+               id="dataEvento"
+               label="Data do evento"
+               icon={Calendar}
+               type="date"
+               {...register("dataEvento")}
+               value={watch("dataEvento")}
+             />
 
-            {/* Textarea */}
-            <div className="relative group">
-              <div className="absolute left-0 top-3 text-muted-foreground/50 group-focus-within:text-primary transition-colors duration-300">
-                <MessageCircle size={16} />
-              </div>
-              <textarea
-                id="mensagem"
-                {...register("mensagem")}
-                rows={3}
-                placeholder="Mensagem (opcional)"
-                className="w-full bg-transparent border-b border-muted-foreground/20 focus:border-primary pl-7 py-3 text-sm text-foreground outline-none transition-all duration-300 placeholder:text-muted-foreground/40 resize-none"
-              />
-            </div>
+             {/* Textarea */}
+             <div className="relative group">
+               <div className="absolute left-0 top-3 text-foreground/50 group-focus-within:text-primary transition-colors duration-300">
+                 <MessageCircle size={16} />
+               </div>
+               <textarea
+                 id="mensagem"
+                 {...register("mensagem")}
+                 rows={3}
+                 placeholder="Mensagem (opcional)"
+                 className="w-full bg-transparent border-b border-foreground/20 focus:border-primary pl-7 py-3 text-sm text-foreground outline-none transition-all duration-300 placeholder:text-foreground/50 resize-none"
+               />
+             </div>
 
-            {/* Submit */}
-            <button
-              type="submit"
-              className="w-full flex items-center justify-center gap-3 py-3.5 border border-primary/30 text-primary hover:bg-primary/10 text-sm tracking-[0.2em] uppercase transition-all duration-300 rounded-sm mt-8"
-            >
-              <MessageCircle size={16} />
-              Enviar via WhatsApp
-            </button>
-          </form>
+             {/* Submit */}
+             <button
+               type="submit"
+               className="w-full flex items-center justify-center gap-3 py-3.5 border border-primary/40 text-primary hover:bg-primary/10 text-sm tracking-[0.2em] uppercase transition-all duration-300 rounded-lg mt-4"
+             >
+               <MessageCircle size={16} />
+               Enviar via WhatsApp
+             </button>
+           </form>
         </div>
       </div>
     </section>
