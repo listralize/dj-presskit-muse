@@ -58,7 +58,7 @@ const ContactSection = () => {
             <motion.img
               src={djCutout}
               alt="DJ Unk"
-              className="relative z-10 h-[85%] w-auto object-contain drop-shadow-2xl"
+              className="relative z-10 w-full h-full object-cover object-top drop-shadow-2xl rounded-xl"
               initial={{ y: 40, opacity: 0 }}
               whileInView={{ y: [40, 0, -8, 0], opacity: 1 }}
               transition={{ 
