@@ -84,6 +84,20 @@ export default {
             height: "0",
           },
         },
+        "fade-out-label": {
+          "0%": {
+            opacity: "1",
+            transform: "translateX(0) scale(1)",
+          },
+          "70%": {
+            opacity: "1",
+            transform: "translateX(0) scale(1)",
+          },
+          "100%": {
+            opacity: "0",
+            transform: "translateX(0.5rem) scale(0.95)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
