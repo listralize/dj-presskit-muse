@@ -1,4 +1,5 @@
 import React from "react";
+import earthTexture from "@/assets/earth-texture.jpg";
 
 const Globe: React.FC = () => {
   return (
@@ -21,7 +22,7 @@ const Globe: React.FC = () => {
           <div
             className="absolute inset-0 rounded-full overflow-hidden"
             style={{
-              backgroundImage: `url(https://pub-c1de1cb456e74d6bbbee111ba9e6c757.r2.dev/earth-texture.jpg)`,
+              backgroundImage: `url(${earthTexture})`,
               backgroundSize: "cover",
               backgroundPosition: "left",
               backgroundRepeat: "repeat-x",
