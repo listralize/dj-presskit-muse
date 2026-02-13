@@ -116,10 +116,10 @@ const HeroSection = () => {
             />
             {/* Globe overlay - aligned with the planet visible through the spaceship window */}
             <div
-              className="absolute z-10 pointer-events-none w-[172px] h-[172px] md:w-[222px] md:h-[222px] lg:w-[272px] lg:h-[272px]"
+              className="absolute z-10 pointer-events-none w-[148px] h-[148px] md:w-[200px] md:h-[200px] lg:w-[250px] lg:h-[250px]"
               style={{
-                top: "calc(20% + 2px)",
-                right: "calc(-35% - 13px)",
+                top: "calc(24% + 2px)",
+                right: "calc(-30% - 13px)",
               }}
             >
               <Globe />
