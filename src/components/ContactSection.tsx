@@ -3,7 +3,8 @@ import { motion } from "motion/react";
 import logo from "@/assets/logo.png";
 import djMoon from "@/assets/dj-moon.png";
 import { UnkDjEffect } from "@/components/ui/text-effect";
-import { Instagram, Youtube, Music, Download, FileText, Image as ImageIcon } from "lucide-react";
+import { Instagram, Youtube, Download, FileText, Image as ImageIcon } from "lucide-react";
+import SpotifyIcon from "@/components/ui/SpotifyIcon";
 import { AnimatedFolder } from "@/components/ui/3d-folder";
 import RiderOverlay from "@/components/RiderOverlay";
 
@@ -143,7 +144,7 @@ const ContactSection = () => {
             {[
               { href: "https://www.instagram.com/unkmusic_", Icon: Instagram },
               { href: "https://www.youtube.com/@unkdj", Icon: Youtube },
-              { href: "https://open.spotify.com/artist/4GZKpcqZUxiPZXkV0Y8qI1?si=78y9xYfYQl2z9i_5jaisJg", Icon: Music },
+              { href: "https://open.spotify.com/artist/4GZKpcqZUxiPZXkV0Y8qI1?si=78y9xYfYQl2z9i_5jaisJg", Icon: SpotifyIcon },
             ].map(({ href, Icon }) => (
               <a
                 key={href}
