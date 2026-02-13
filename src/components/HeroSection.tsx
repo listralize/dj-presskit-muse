@@ -160,7 +160,7 @@ const HeroSection = () => {
         <div className="lg:w-5/12 w-full max-w-md">
           {/* Greeting */}
           <div className="mb-8">
-            <p className="text-muted-foreground/50 text-xs tracking-[0.3em] uppercase mb-2">
+            <p className="text-foreground/60 text-xs tracking-[0.3em] uppercase mb-2">
               Contrate agora
             </p>
             <h2 className="text-3xl md:text-4xl font-display text-foreground leading-none">
