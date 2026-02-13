@@ -1,65 +1,63 @@
 
 
-# Redesign Completo do Press Kit - Unk DJ
+# Redesign do Hero + Formulario Moderno com WhatsApp
 
-## Problema Atual
-O site atual tem uma estética neon ciano genérica, a foto do DJ aparece como background do hero inteiro, e o visual geral nao transmite inovacao. O usuario quer algo totalmente diferente.
+## Visao Geral
 
-## Mudancas Principais
+Redesign completo do HeroSection: remover o texto "UNK DJ" duplicado, manter apenas a logo + foto do DJ + um formulario de contato super moderno que cumprimenta o usuario pelo nome em tempo real e envia os dados preenchidos via WhatsApp.
 
-### 1. Nova foto do DJ (Hero)
-- Copiar a nova foto enviada (`kjhjk-2.png` - foto espacial) para `src/assets/dj-photo.png`
-- A foto do DJ aparece APENAS no hero, nao em outras secoes
+---
 
-### 2. Hero Section - Layout Totalmente Novo
-- Logo centralizada no topo (sem o texto "UNK DJ" com glow neon)
-- Abaixo da logo, a legenda "Energia em Ritmo - Eletrofunk - House Music"
-- Foto do DJ em destaque ao lado ou como elemento visual integrado (split layout ou composicao moderna)
-- Links sociais minimalistas
-- Remover o efeito de glow neon ciano
+## Mudancas no HeroSection
 
-### 3. Nova Paleta Visual
-- Manter fundo preto/escuro mas com tons mais sofisticados
-- Trocar o ciano neon por branco puro + cinzas elegantes como cor de destaque
-- Acentos sutis em azul escuro/steel blue inspirados na foto espacial
-- Tipografia mais limpa e moderna, sem efeitos glow
-- Bordas e divisoes com gradientes sutis em vez de box-shadow neon
+### Layout
+- **Logo** centralizada no topo
+- **Legenda** "Energia em Ritmo | Eletrofunk | House Music" abaixo da logo
+- **Split layout**: foto do DJ de um lado, formulario do outro (em mobile, empilhados)
+- **Remover** o texto "UNK DJ" em h1 (ja esta na logo)
+- **Manter** links sociais discretos
 
-### 4. Remover shadcn/Radix dos componentes principais
-- As secoes do presskit ja sao custom e nao usam componentes shadcn
-- Manter shadcn apenas para Toast/Tooltip no App.tsx (infraestrutura)
-- Nao instalar react-aria pois o site e majoritariamente visual/estatico - nao ha formularios ou componentes interativos complexos que justifiquem a troca
+### Formulario Moderno
+Campos:
+- **Nome** (obrigatorio) - ao digitar, o formulario exibe "Ola, [Nome]!" em tempo real
+- **Telefone** (obrigatorio)
+- **Tipo de evento** (select customizado: Festa, Festival, Casamento, Corporativo, Outro)
+- **Data do evento** (input date)
+- **Mensagem** (textarea, opcional)
 
-### 5. Redesign de Todas as Secoes
-- **BioSection**: Layout assimetrico moderno, texto com tipografia editorial
-- **StatsSection**: Numeros grandes e limpos sem cards com borda glow, estilo grid minimalista
-- **EventsSection**: Grid de fotos com hover elegante, sem bordas neon
-- **ContactSection**: CTA moderno e limpo, footer discreto
+Estilo do formulario:
+- Inputs com fundo transparente, borda inferior fina (underline style)
+- Labels que flutuam (floating labels) ao focar/preencher
+- Transicoes suaves CSS
+- Botao de envio minimalista com icone do WhatsApp
+- Totalmente responsivo
 
-### 6. Efeitos Visuais Modernos (substituindo o neon)
-- Gradientes sutis (preto para cinza escuro)
-- Linhas finas como separadores
-- Espacamento generoso (whitespace como elemento de design)
-- Transicoes suaves no hover
-- Possivel uso de blur/glassmorphism sutil
+### Envio via WhatsApp
+Ao clicar em "Enviar", monta uma mensagem formatada com todos os dados e abre `https://wa.me/5500000000000?text=...` com os dados encodados via `encodeURIComponent`.
+
+### Validacao
+- Validacao client-side com zod (nome, telefone obrigatorios, formato de telefone)
+- Mensagens de erro sutis abaixo dos campos
+- Encoding correto dos dados na URL do WhatsApp com `encodeURIComponent`
+
+---
 
 ## Detalhes Tecnicos
 
-### Arquivos a serem modificados:
-1. **Copiar nova foto**: `user-uploads://kjhjk-2.png` para `src/assets/dj-photo.png`
-2. **`src/index.css`**: Remover efeitos glow, atualizar paleta de cores (primary de ciano para branco/steel blue), remover utilitarios `text-glow` e `border-glow`
-3. **`tailwind.config.ts`**: Ajustar cores do tema
-4. **`src/components/HeroSection.tsx`**: Redesign completo - logo + legenda centralizada, foto do DJ como elemento visual (nao background full), layout moderno
-5. **`src/components/BioSection.tsx`**: Layout editorial moderno, remover classes glow
-6. **`src/components/StatsSection.tsx`**: Grid minimalista, remover cards com border-glow
-7. **`src/components/EventsSection.tsx`**: Grid refinado sem efeitos neon
-8. **`src/components/ContactSection.tsx`**: CTA limpo e moderno
-9. **`src/pages/Index.tsx`**: Manter estrutura, possiveis ajustes de ordem
+### Arquivos modificados:
+1. **`src/components/HeroSection.tsx`** - Redesign completo com formulario integrado
 
-### Nova paleta de cores:
-- Background: preto profundo (#05070a)
-- Foreground: branco (#f0f2f5)
-- Primary: branco ou steel blue sutil (#8da4bf)
-- Muted: cinzas escuros
-- Accent: tons de azul frio/acinzentado (inspirado na foto espacial)
+### Dependencias utilizadas (ja instaladas):
+- `zod` para validacao
+- `react-hook-form` + `@hookform/resolvers` para gerenciamento do formulario
+- `lucide-react` para icones
 
+### Estrutura do formulario:
+- Componente interno no HeroSection (sem criar arquivo separado, mantendo simplicidade)
+- Estado controlado via `react-hook-form` com resolver zod
+- `watch("nome")` para exibir saudacao em tempo real
+- Funcao `handleSubmit` que monta a URL do WhatsApp e abre em nova aba
+
+### Responsividade:
+- Desktop: grid 2 colunas (foto | formulario)
+- Mobile: stack vertical (logo, legenda, foto, formulario)
