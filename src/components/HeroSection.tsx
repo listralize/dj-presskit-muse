@@ -108,7 +108,7 @@ const HeroSection = () => {
       <div className="relative z-10 flex-1 flex flex-col lg:flex-row items-center justify-center container mx-auto px-6 gap-10 lg:gap-20 pb-16 pt-4">
         {/* DJ Photo */}
         <div className="lg:w-5/12 flex justify-center">
-           <div className="relative w-64 md:w-80 lg:w-96 aspect-[3/4] rounded-sm">
+           <div className="relative w-64 md:w-80 lg:w-96 aspect-[3/4] rounded-sm overflow-visible">
             <img
               src={djPhoto}
               alt="Unk DJ"
@@ -116,10 +116,10 @@ const HeroSection = () => {
             />
             {/* Globe overlay - aligned with the planet visible through the spaceship window */}
             <div
-              className="absolute z-10 pointer-events-none w-[100px] h-[100px] md:w-[130px] md:h-[130px] lg:w-[155px] lg:h-[155px]"
+              className="absolute z-10 pointer-events-none w-[200px] h-[200px] md:w-[260px] md:h-[260px] lg:w-[320px] lg:h-[320px]"
               style={{
-                top: "12%",
-                right: "12%",
+                top: "5%",
+                right: "-20%",
               }}
             >
               <Globe />
