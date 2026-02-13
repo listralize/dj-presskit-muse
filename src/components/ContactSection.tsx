@@ -2,6 +2,7 @@ import { Mail, Phone } from "lucide-react";
 import { motion } from "motion/react";
 import logo from "@/assets/logo.png";
 import djMoon from "@/assets/dj-moon.png";
+import { UnkDjEffect } from "@/components/ui/text-effect";
 
 const ContactSection = () => {
   return (
@@ -47,11 +48,15 @@ const ContactSection = () => {
             transition={{ duration: 1.2, ease: "easeOut" }}
             viewport={{ once: true }}
           >
+            {/* UNK effect behind the DJ */}
+            <div className="absolute inset-0 z-[1] flex items-center justify-center opacity-15">
+              <UnkDjEffect className="h-32 md:h-48 text-white" speed={1.2} />
+            </div>
             <div className="absolute inset-0 z-10 bg-gradient-to-b from-background via-background/80 to-transparent h-[40%]" />
             <motion.img
               src={djMoon}
               alt="DJ Unk na lua"
-              className="w-full h-full object-contain object-bottom"
+              className="relative z-[5] w-full h-full object-contain object-bottom"
               animate={{ filter: ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 20px rgba(255,255,255,0.25))", "drop-shadow(0 0 0px rgba(255,255,255,0))"] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
