@@ -47,8 +47,8 @@ const MusicSection = () => {
         <div className="flex flex-col items-center gap-4 mb-10">
           <div className="line-separator" />
           <h2
-            className="text-5xl md:text-6xl font-display text-yellow-400 tracking-wider"
-            style={{ textShadow: "0 0 20px rgba(250,204,21,0.4), 0 0 40px rgba(250,204,21,0.15)" }}
+            className="text-5xl md:text-6xl font-display tracking-wider"
+            style={{ color: "#a6c8d3", textShadow: "0 0 20px rgba(255,255,255,0.25), 0 0 40px rgba(255,255,255,0.1)" }}
           >
             Músicas
           </h2>
@@ -63,11 +63,11 @@ const MusicSection = () => {
               className={cn(
                 "w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left text-sm transition-all duration-200",
                 i === currentIndex
-                  ? "bg-yellow-400/10 text-yellow-400"
+                  ? "bg-[#a6c8d3]/10 text-[#a6c8d3]"
                   : "text-foreground/70 hover:bg-accent/30 hover:text-foreground"
               )}
             >
-              <Music size={14} className={i === currentIndex ? "text-yellow-400" : "text-foreground/40"} />
+              <Music size={14} className={i === currentIndex ? "text-[#a6c8d3]" : "text-foreground/40"} />
               <span className="truncate">{track.title}</span>
             </button>
           ))}

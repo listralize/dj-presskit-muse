@@ -39,8 +39,8 @@ const CustomSlider = ({
       }}
     >
       <div
-        className="absolute top-0 left-0 h-full bg-yellow-400 rounded-full transition-all duration-100"
-        style={{ width: `${value}%` }}
+        className="absolute top-0 left-0 h-full rounded-full transition-all duration-100"
+        style={{ width: `${value}%`, backgroundColor: "#a6c8d3" }}
       />
     </div>
   );
@@ -180,7 +180,7 @@ const AudioPlayer = ({
             onClick={onShuffleToggle}
             className={cn(
               "text-foreground/60 hover:bg-accent hover:text-foreground h-8 w-8 rounded-full",
-              isShuffle && "text-yellow-400"
+              isShuffle && "text-[#a6c8d3]"
             )}
           >
             <Shuffle size={14} />
@@ -219,7 +219,7 @@ const AudioPlayer = ({
             onClick={onRepeatToggle}
             className={cn(
               "text-foreground/60 hover:bg-accent hover:text-foreground h-8 w-8 rounded-full",
-              isRepeat && "text-yellow-400"
+              isRepeat && "text-[#a6c8d3]"
             )}
           >
             <Repeat size={14} />
