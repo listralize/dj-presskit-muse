@@ -7,15 +7,11 @@ import { cn } from "@/lib/utils";
 const initialProps: TargetAndTransition = {
   pathLength: 0,
   opacity: 0,
-  scale: 0.7,
-  rotateY: -15,
 };
 
 const animateProps: TargetAndTransition = {
   pathLength: 1,
   opacity: 1,
-  scale: 1,
-  rotateY: 0,
 };
 
 type Props = React.ComponentProps<typeof motion.svg> & {
@@ -35,157 +31,176 @@ function UnkDjEffect({
     <motion.svg
       className={cn("h-16 md:h-20", className)}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 300 300"
+      viewBox="0 0 900 300"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
-      initial={{ opacity: 1, scale: 0.8, rotateX: 10 }}
-      exit={{ opacity: 0, scale: 0.6, rotateX: -10 }}
+      strokeWidth="3"
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.6 }}
       transition={{
-        duration: 0.8,
+        duration: 1.2,
         type: "spring",
-        stiffness: 120,
-        damping: 15,
+        stiffness: 80,
+        damping: 20,
       }}
       {...props}
     >
-      <title>UNK DJ</title>
+      <title>UNK</title>
 
-      {/* U letter - outer outline */}
+      {/* ===== U LETTER ===== */}
+      {/* U - outer shape (right arm + curve + left arm) */}
       <motion.path
-        d="M 76.871094 151.917969 L 76.871094 108.128906 L 95.535156 108.128906 L 95.535156 151.871094 C 95.535156 164.242188 91.347656 174.609375 82.972656 182.972656 C 74.601562 191.339844 64.21875 195.523438 51.839844 195.523438 C 39.8125 195.523438 29.511719 191.316406 20.925781 182.886719 C 12.339844 174.457031 8.046875 164.066406 8.046875 151.695312 L 8.046875 108.128906 L 27.964844 108.128906 L 27.964844 151.917969 C 27.964844 157.71875 29.996094 163.101562 34.066406 168.070312 C 38.855469 173.992188 44.953125 176.949219 52.371094 176.949219 C 59.011719 176.949219 64.75 174.527344 69.597656 169.683594 C 74.445312 164.84375 76.867188 158.914062 76.867188 151.917969 Z"
-        style={{ strokeLinecap: "square", strokeLinejoin: "miter" }}
-        initial={initialProps}
-        animate={animateProps}
+        d="M 225.40625 150.269531 L 225.40625 18.625 L 281.511719 18.625 L 281.511719 150.128906 C 281.511719 187.320312 268.925781 218.492188 243.75 243.636719 C 218.578125 268.78125 187.367188 281.371094 150.144531 281.371094 C 113.996094 281.371094 83.019531 268.714844 57.207031 243.371094 C 31.394531 218.03125 18.488281 186.792969 18.488281 149.601562 L 18.488281 18.625 L 78.371094 18.625 L 78.371094 150.269531 C 78.371094 167.710938 84.476562 183.894531 96.71875 198.824219 C 111.109375 216.628906 129.441406 225.527344 151.742188 225.527344 C 171.710938 225.527344 188.960938 218.242188 203.535156 203.683594 C 218.105469 189.125 225.390625 171.304688 225.390625 150.269531 Z"
+        style={{ strokeLinecap: "round", strokeLinejoin: "round" }}
+        initial={{ ...initialProps, filter: "blur(8px)" }}
+        animate={{ ...animateProps, filter: "blur(0px)" }}
         transition={{
-          duration: calc(1.0),
-          ease: [0.25, 0.46, 0.45, 0.94],
-          type: "spring",
-          stiffness: 200,
-          damping: 18,
-          opacity: { duration: 0.4 },
-          scale: { duration: 0.6, type: "spring", stiffness: 180 },
+          pathLength: {
+            duration: calc(1.8),
+            ease: [0.65, 0, 0.35, 1],
+          },
+          opacity: { duration: calc(0.4) },
+          filter: { duration: calc(1.0) },
         }}
       />
 
-      {/* N letter - left diagonal part */}
+      {/* ===== N LETTER (offset +300 x) ===== */}
+      {/* N - left diagonal */}
       <motion.path
-        d="M 149.101562 151.828125 L 122.808594 151.828125 L 122.808594 195.4375 L 104.328125 195.4375 L 104.328125 108.21875 Z"
-        style={{ strokeLinecap: "square", strokeLinejoin: "miter" }}
-        initial={initialProps}
-        animate={animateProps}
+        d="M 447.84375 154.027344 L 368.796875 154.027344 L 368.796875 285.128906 L 313.230469 285.128906 L 313.230469 22.910156 Z"
+        style={{ strokeLinecap: "round", strokeLinejoin: "round" }}
+        initial={{ ...initialProps, filter: "blur(8px)" }}
+        animate={{ ...animateProps, filter: "blur(0px)" }}
         transition={{
-          duration: calc(0.8),
-          ease: "easeInOut",
-          delay: calc(1.2),
-          type: "spring",
-          stiffness: 220,
-          damping: 16,
-          opacity: { duration: 0.35, delay: calc(1.2) },
-          scale: { duration: 0.5, delay: calc(1.2) },
+          pathLength: {
+            duration: calc(1.4),
+            ease: [0.65, 0, 0.35, 1],
+            delay: calc(1.0),
+          },
+          opacity: { duration: calc(0.4), delay: calc(1.0) },
+          filter: { duration: calc(0.8), delay: calc(1.0) },
+        }}
+      />
+      {/* N - right diagonal */}
+      <motion.path
+        d="M 452.15625 154.320312 L 531.203125 154.320312 L 531.203125 11.585938 L 586.769531 11.585938 L 586.769531 285.460938 Z"
+        style={{ strokeLinecap: "round", strokeLinejoin: "round" }}
+        initial={{ ...initialProps, filter: "blur(8px)" }}
+        animate={{ ...animateProps, filter: "blur(0px)" }}
+        transition={{
+          pathLength: {
+            duration: calc(1.4),
+            ease: [0.65, 0, 0.35, 1],
+            delay: calc(1.6),
+          },
+          opacity: { duration: calc(0.4), delay: calc(1.6) },
+          filter: { duration: calc(0.8), delay: calc(1.6) },
         }}
       />
 
-      {/* N letter - right diagonal part */}
+      {/* ===== K LETTER (offset +600 x) ===== */}
+      {/* K - vertical bar */}
       <motion.path
-        d="M 150.539062 151.925781 L 176.832031 151.925781 L 176.832031 104.449219 L 195.3125 104.449219 L 195.3125 195.546875 Z"
-        style={{ strokeLinecap: "square", strokeLinejoin: "miter" }}
-        initial={initialProps}
-        animate={animateProps}
+        d="M 670.011719 286.898438 L 613.363281 286.898438 L 613.363281 13.09375 L 670.011719 13.09375 Z"
+        style={{ strokeLinecap: "round", strokeLinejoin: "round" }}
+        initial={{ ...initialProps, filter: "blur(8px)" }}
+        animate={{ ...animateProps, filter: "blur(0px)" }}
         transition={{
-          duration: calc(0.8),
-          ease: "easeInOut",
-          delay: calc(1.8),
-          type: "spring",
-          stiffness: 220,
-          damping: 16,
-          opacity: { duration: 0.35, delay: calc(1.8) },
-          scale: { duration: 0.5, delay: calc(1.8) },
+          pathLength: {
+            duration: calc(1.0),
+            ease: [0.65, 0, 0.35, 1],
+            delay: calc(2.4),
+          },
+          opacity: { duration: calc(0.3), delay: calc(2.4) },
+          filter: { duration: calc(0.6), delay: calc(2.4) },
+        }}
+      />
+      {/* K - upper arm */}
+      <motion.path
+        d="M 886.640625 13.09375 L 744.203125 143.933594 L 673.257812 143.933594 L 815.683594 13.09375 Z"
+        style={{ strokeLinecap: "round", strokeLinejoin: "round" }}
+        initial={{ ...initialProps, filter: "blur(6px)", x: -20 }}
+        animate={{ ...animateProps, filter: "blur(0px)", x: 0 }}
+        transition={{
+          pathLength: {
+            duration: calc(1.2),
+            ease: [0.65, 0, 0.35, 1],
+            delay: calc(2.8),
+          },
+          opacity: { duration: calc(0.3), delay: calc(2.8) },
+          filter: { duration: calc(0.6), delay: calc(2.8) },
+          x: { duration: calc(0.8), delay: calc(2.8), type: "spring", stiffness: 200, damping: 20 },
+        }}
+      />
+      {/* K - lower arm */}
+      <motion.path
+        d="M 886.640625 286.636719 L 744.203125 155.796875 L 673.257812 155.796875 L 815.699219 286.636719 Z"
+        style={{ strokeLinecap: "round", strokeLinejoin: "round" }}
+        initial={{ ...initialProps, filter: "blur(6px)", x: -20 }}
+        animate={{ ...animateProps, filter: "blur(0px)", x: 0 }}
+        transition={{
+          pathLength: {
+            duration: calc(1.2),
+            ease: [0.65, 0, 0.35, 1],
+            delay: calc(3.2),
+          },
+          opacity: { duration: calc(0.3), delay: calc(3.2) },
+          filter: { duration: calc(0.6), delay: calc(3.2) },
+          x: { duration: calc(0.8), delay: calc(3.2), type: "spring", stiffness: 200, damping: 20 },
         }}
       />
 
-      {/* K letter - vertical bar */}
+      {/* Fill reveal after stroke completes */}
       <motion.path
-        d="M 219.898438 195.523438 L 201.054688 195.523438 L 201.054688 104.449219 L 219.898438 104.449219 Z"
-        style={{ strokeLinecap: "square", strokeLinejoin: "miter" }}
-        initial={initialProps}
-        animate={animateProps}
-        transition={{
-          duration: calc(0.6),
-          ease: "easeOut",
-          delay: calc(2.5),
-          type: "spring",
-          stiffness: 280,
-          damping: 20,
-          opacity: { duration: 0.3, delay: calc(2.5) },
-          scale: { duration: 0.4, delay: calc(2.5) },
-        }}
+        d="M 225.40625 150.269531 L 225.40625 18.625 L 281.511719 18.625 L 281.511719 150.128906 C 281.511719 187.320312 268.925781 218.492188 243.75 243.636719 C 218.578125 268.78125 187.367188 281.371094 150.144531 281.371094 C 113.996094 281.371094 83.019531 268.714844 57.207031 243.371094 C 31.394531 218.03125 18.488281 186.792969 18.488281 149.601562 L 18.488281 18.625 L 78.371094 18.625 L 78.371094 150.269531 C 78.371094 167.710938 84.476562 183.894531 96.71875 198.824219 C 111.109375 216.628906 129.441406 225.527344 151.742188 225.527344 C 171.710938 225.527344 188.960938 218.242188 203.535156 203.683594 C 218.105469 189.125 225.390625 171.304688 225.390625 150.269531 Z"
+        stroke="none"
+        fill="currentColor"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: calc(0.8), delay: calc(4.0), ease: "easeOut" }}
       />
-
-      {/* K letter - upper arm */}
       <motion.path
-        d="M 291.953125 104.449219 L 244.574219 147.96875 L 220.980469 147.96875 L 268.351562 104.449219 Z"
-        style={{ strokeLinecap: "square", strokeLinejoin: "miter" }}
-        initial={initialProps}
-        animate={animateProps}
-        transition={{
-          duration: calc(0.6),
-          ease: "easeInOut",
-          delay: calc(2.9),
-          type: "spring",
-          stiffness: 260,
-          damping: 18,
-          opacity: { duration: 0.3, delay: calc(2.9) },
-          scale: { duration: 0.4, delay: calc(2.9) },
-        }}
+        d="M 447.84375 154.027344 L 368.796875 154.027344 L 368.796875 285.128906 L 313.230469 285.128906 L 313.230469 22.910156 Z"
+        stroke="none"
+        fill="currentColor"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: calc(0.8), delay: calc(4.2), ease: "easeOut" }}
       />
-
-      {/* K letter - lower arm */}
       <motion.path
-        d="M 291.953125 195.4375 L 244.574219 151.917969 L 220.980469 151.917969 L 268.359375 195.4375 Z"
-        style={{ strokeLinecap: "square", strokeLinejoin: "miter" }}
-        initial={initialProps}
-        animate={animateProps}
-        transition={{
-          duration: calc(0.6),
-          ease: "easeInOut",
-          delay: calc(3.3),
-          type: "spring",
-          stiffness: 260,
-          damping: 18,
-          opacity: { duration: 0.3, delay: calc(3.3) },
-          scale: { duration: 0.4, delay: calc(3.3) },
-        }}
+        d="M 452.15625 154.320312 L 531.203125 154.320312 L 531.203125 11.585938 L 586.769531 11.585938 L 586.769531 285.460938 Z"
+        stroke="none"
+        fill="currentColor"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: calc(0.8), delay: calc(4.2), ease: "easeOut" }}
       />
-
-      {/* Futuristic accent lines */}
-      <motion.g className="stroke-primary opacity-60">
-        <motion.path
-          d="M 8 100L292 100"
-          strokeWidth="1"
-          style={{ strokeLinecap: "square" }}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.5 }}
-          transition={{
-            duration: calc(1.5),
-            delay: calc(4.0),
-            ease: "easeOut",
-          }}
-        />
-        <motion.path
-          d="M 8 200L292 200"
-          strokeWidth="1"
-          style={{ strokeLinecap: "square" }}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 0.5 }}
-          transition={{
-            duration: calc(1.5),
-            delay: calc(4.2),
-            ease: "easeOut",
-          }}
-          onAnimationComplete={onAnimationComplete}
-        />
-      </motion.g>
+      <motion.path
+        d="M 670.011719 286.898438 L 613.363281 286.898438 L 613.363281 13.09375 L 670.011719 13.09375 Z"
+        stroke="none"
+        fill="currentColor"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: calc(0.8), delay: calc(4.4), ease: "easeOut" }}
+      />
+      <motion.path
+        d="M 886.640625 13.09375 L 744.203125 143.933594 L 673.257812 143.933594 L 815.683594 13.09375 Z"
+        stroke="none"
+        fill="currentColor"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: calc(0.8), delay: calc(4.4), ease: "easeOut" }}
+      />
+      <motion.path
+        d="M 886.640625 286.636719 L 744.203125 155.796875 L 673.257812 155.796875 L 815.699219 286.636719 Z"
+        stroke="none"
+        fill="currentColor"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: calc(0.8), delay: calc(4.4), ease: "easeOut" }}
+        onAnimationComplete={onAnimationComplete}
+      />
     </motion.svg>
   );
 }
