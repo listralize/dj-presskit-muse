@@ -7,11 +7,11 @@ import djPhoto from "@/assets/dj-photo.png";
 import logo from "@/assets/logo.png";
 import Globe from "@/components/ui/globe";
 import { UnkDjEffect } from "@/components/ui/text-effect";
-import { Instagram, Youtube, Music, MessageCircle, User, Phone, Calendar, MessageSquare, ChevronDown } from "lucide-react";
+import { Instagram, Youtube, MessageCircle, User, Calendar, MessageSquare, ChevronDown } from "lucide-react";
+import SpotifyIcon from "@/components/ui/SpotifyIcon";
 
 const formSchema = z.object({
   nome: z.string().trim().min(1, "Nome é obrigatório").max(100),
-  telefone: z.string().trim().min(10, "Telefone inválido").max(20),
   tipoEvento: z.string().min(1, "Selecione o tipo de evento"),
   dataEvento: z.string().optional(),
   mensagem: z.string().max(500).optional(),
@@ -78,7 +78,7 @@ const HeroSection = () => {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: { nome: "", telefone: "", tipoEvento: "", dataEvento: "", mensagem: "" },
+    defaultValues: { nome: "", tipoEvento: "", dataEvento: "", mensagem: "" },
   });
 
   const nome = watch("nome");
@@ -90,7 +90,6 @@ const HeroSection = () => {
       `*Contato via Press Kit*`,
       ``,
       `*Nome:* ${data.nome}`,
-      `*Telefone:* ${data.telefone}`,
       `*Tipo de Evento:* ${data.tipoEvento}`,
     ];
     if (data.dataEvento) lines.push(`*Data:* ${data.dataEvento}`);
@@ -140,7 +139,7 @@ const HeroSection = () => {
               {[
                  { href: "https://www.instagram.com/unkmusic_", Icon: Instagram },
                  { href: "https://www.youtube.com/@unkdj", Icon: Youtube },
-                 { href: "https://open.spotify.com/artist/4GZKpcqZUxiPZXkV0Y8qI1?si=78y9xYfYQl2z9i_5jaisJg", Icon: Music },
+                 { href: "https://open.spotify.com/artist/4GZKpcqZUxiPZXkV0Y8qI1?si=78y9xYfYQl2z9i_5jaisJg", Icon: SpotifyIcon },
                ].map(({ href, Icon }) => (
                  <a
                    key={href}
@@ -182,14 +181,8 @@ const HeroSection = () => {
                value={nome}
              />
 
-             <FloatingInput
-               id="telefone"
-               label="Telefone / WhatsApp"
-               icon={Phone}
-               error={errors.telefone?.message}
-               {...register("telefone")}
-               value={watch("telefone")}
-             />
+
+
 
              {/* Custom select */}
              <div className="relative group">
