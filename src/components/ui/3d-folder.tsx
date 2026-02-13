@@ -9,7 +9,7 @@ import {
   useState,
 } from "react"
 import type React from "react"
-import { X, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react"
+import { X, ExternalLink, ChevronLeft, ChevronRight, Download } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface Project {
@@ -22,12 +22,14 @@ interface AnimatedFolderProps {
   title: string
   projects: Project[]
   className?: string
+  downloadFiles?: string[]
 }
 
 export function AnimatedFolder({
   title,
   projects,
   className,
+  downloadFiles,
 }: AnimatedFolderProps) {
   const [isOpened, setIsOpened] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
@@ -196,6 +198,29 @@ export function AnimatedFolder({
           {projects.length} arquivos
         </p>
 
+        {/* Download all button */}
+        {downloadFiles && downloadFiles.length > 0 && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              downloadFiles.forEach((url, i) => {
+                setTimeout(() => {
+                  const a = document.createElement("a");
+                  a.href = url;
+                  a.download = url.split("/").pop() || `file-${i}`;
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                }, i * 300);
+              });
+            }}
+            className="text-muted-foreground hover:text-foreground flex items-center gap-1.5 text-xs transition-all duration-300 mt-1"
+          >
+            <Download size={12} />
+            <span>Baixar todos</span>
+          </button>
+        )}
+
         {/* Click hint */}
         <div
           className="text-muted-foreground absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1.5 text-xs transition-all duration-300"
@@ -209,7 +234,7 @@ export function AnimatedFolder({
       </div>
 
       <ImageLightbox
-        projects={projects.slice(0, 3)}
+        projects={projects}
         currentIndex={selectedIndex ?? 0}
         isOpen={selectedIndex !== null}
         onClose={handleCloseLightbox}

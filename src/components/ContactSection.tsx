@@ -5,9 +5,23 @@ import { UnkDjEffect } from "@/components/ui/text-effect";
 import { AnimatedFolder } from "@/components/ui/3d-folder";
 
 const fotosData = [
-  { id: "f1", image: "/placeholder.svg", title: "Foto 1" },
-  { id: "f2", image: "/placeholder.svg", title: "Foto 2" },
-  { id: "f3", image: "/placeholder.svg", title: "Foto 3" },
+  { id: "f1", image: "/photos/DSC01978.jpg", title: "DSC01978" },
+  { id: "f2", image: "/photos/DSC01866.jpg", title: "DSC01866" },
+  { id: "f3", image: "/photos/DSC01883.jpg", title: "DSC01883" },
+  { id: "f4", image: "/photos/DSC01891.jpg", title: "DSC01891" },
+  { id: "f5", image: "/photos/DSC01905.jpg", title: "DSC01905" },
+  { id: "f6", image: "/photos/DSC01916.jpg", title: "DSC01916" },
+  { id: "f7", image: "/photos/DSC01959.jpg", title: "DSC01959" },
+];
+
+const fotosDownloadFiles = [
+  "/photos/DSC01978.jpg",
+  "/photos/DSC01866.jpg",
+  "/photos/DSC01883.jpg",
+  "/photos/DSC01891.jpg",
+  "/photos/DSC01905.jpg",
+  "/photos/DSC01916.jpg",
+  "/photos/DSC01959.jpg",
 ];
 
 const riderData = [
@@ -28,7 +42,7 @@ const ContactSection = () => {
       <div className="container mx-auto px-6 max-w-5xl">
         {/* 3D Folders */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-12">
-          <AnimatedFolder title="Fotos" projects={fotosData} />
+          <AnimatedFolder title="Fotos" projects={fotosData} downloadFiles={fotosDownloadFiles} />
           <AnimatedFolder title="Rider" projects={riderData} />
           <AnimatedFolder title="Vídeos" projects={videosData} />
         </div>
