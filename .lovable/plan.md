@@ -1,26 +1,68 @@
 
-# Reescrever Globe com codigo exato da Ruixen UI
+# Plano de Melhorias Visuais + Player de Musica
 
-## Problema
-O globo atual usa uma textura local (`earth-texture.jpg`) que nao tem a qualidade/aparencia correta. A estrutura do componente tambem difere do original da Ruixen UI.
+## 1. Correcao de Cores do Site Inteiro
 
-## Solucao
-Reescrever `src/components/ui/globe.tsx` com o codigo EXATO do repositorio oficial da Ruixen UI (GitHub: ruixenui/ruixen.com).
+**Problema**: Textos cinza (`text-muted-foreground`) estao dificeis de ler no fundo escuro. Destaques brancos precisam virar amarelo.
 
-## Alteracoes tecnicas
+**Solucao**: Atualizar o CSS e os componentes:
 
-### `src/components/ui/globe.tsx`
-Substituir completamente pelo codigo original da Ruixen UI:
+- **`src/index.css`**: Mudar `--muted-foreground` de cinza escuro (`215 10% 45%`) para branco (`210 15% 85%`). Adicionar uma variavel `--highlight` amarela (ex: `45 100% 60%`).
+- **`src/components/BioSection.tsx`**: Trocar `text-muted-foreground` por `text-foreground/80` nos paragrafos. Destaques como "Unk DJ" e "Rock This" ficam amarelos (`text-yellow-400`).
+- **`src/components/StatsSection.tsx`**: Trocar `text-muted-foreground` e `text-muted-foreground/50` por tons brancos mais claros. Valores em destaque ganham tom amarelo.
+- **`src/components/ContactSection.tsx`**: Textos cinzas viram brancos. Icones `text-primary` viram amarelos. Footer tambem fica mais legivel.
+- **`src/components/EventsSection.tsx`**: Titulo "Eventos" ganha destaque amarelo.
+- **`src/components/HeroSection.tsx`**: Labels e placeholders do form ficam brancos (`text-foreground/60`). O subtitulo "Contrate agora" fica mais visivel.
 
-1. **Remover** o import da textura local `earth-texture.jpg`
-2. **Usar a URL oficial** da textura: `https://pub-940ccf6255b54fa799a9b01050e6c227.r2.dev/globe.jpeg`
-3. **Estrutura do componente**: Um unico div `w-[250px] h-[250px] rounded-full overflow-hidden` com a textura como background
-4. **Box-shadow via Tailwind**: `shadow-[0_0_20px_rgba(255,255,255,0.2),-5px_0_8px_#c3f4ff_inset,15px_2px_25px_#000_inset,-24px_-2px_34px_#c3f4ff99_inset,250px_0_44px_#00000066_inset,150px_0_38px_#000000aa_inset]`
-5. **Estrelas como filhas do div principal** (nao em container separado), com posicoes absolutas fixas em pixels
-6. **Container externo**: `flex items-center justify-center h-screen` (sera adaptado para `w-full h-full` para manter compatibilidade com HeroSection)
+## 2. Secao de Eventos com Destaque
 
-### `src/components/HeroSection.tsx`
-Nenhuma alteracao necessaria - o componente ja monta o Globe dentro de um container com tamanho definido.
+- **`src/components/EventsSection.tsx`**: Titulo "Eventos" estilizado com cor amarela e glow sutil para destacar.
 
-### Nenhuma dependencia adicional necessaria
-O componente usa apenas React e Tailwind CSS.
+## 3. Player de Musica
+
+### 3.1 Copiar arquivos de audio para o projeto
+Copiar os 6 arquivos `.wav` para `public/audio/`:
+- `DECIO_GOMES_UNK_-_MEDLEY_DE_IGARATÁ_3_final.wav`
+- `BOLOLO_-_UNK_NADIRNETTO_BRENDOW_final.wav`
+- `300_NO_7_-_UNK_NADIRNETTO_MC_GP_MC_LUUKY_MC_J_VILA_v2_1.wav`
+- `UNK_-_365_DIAS_1.wav`
+- `UNK_-_FUI_MLK_-_NILO_MC_PAIVA.wav`
+- `UNK_TÁLITA_-_Ô_MOÇA_-_MC_ZAQUIN.wav`
+
+### 3.2 Criar componente AudioPlayer
+- **`src/components/ui/audio-player.tsx`**: Criar o componente baseado no codigo fornecido, adaptado para usar `motion/react` (ja instalado) em vez de `framer-motion`. Estilizado com as cores do site (fundo escuro, texto branco, acentos amarelos).
+
+### 3.3 Criar secao MusicSection
+- **`src/components/MusicSection.tsx`**: Nova secao posicionada logo abaixo do "Sobre" (BioSection). Contera:
+  - Titulo "Musicas" com destaque
+  - Lista de faixas clicaveis (nome da musica)
+  - Player de audio que toca a faixa selecionada
+  - Controles de play/pause, anterior/proximo, seek, shuffle e repeat
+  - Lista de tracks:
+    1. Medley de Igarata 3 (feat. Decio Gomes)
+    2. Bololo (feat. Nadir Netto, Brendow)
+    3. 300 no 7 (feat. Nadir Netto, MC GP, MC Luuky, MC J Vila)
+    4. 365 Dias
+    5. Fui Mlk (feat. Nilo, MC Paiva)
+    6. O Moca (feat. Talita, MC Zaquin)
+
+### 3.4 Atualizar Index.tsx
+- Importar e adicionar `MusicSection` entre `BioSection` e `StatsSection`.
+
+## Resumo da Ordem das Secoes
+
+```text
+HeroSection (foto + form)
+BioSection (sobre)
+MusicSection (player) <-- NOVO
+StatsSection (numeros)
+EventsSection (marquee com destaque)
+ContactSection (contato + footer)
+```
+
+## Detalhes Tecnicos
+
+- Usar `motion/react` (ja instalado) no audio-player em vez de `framer-motion`
+- Audios ficam em `public/audio/` para acesso direto via URL (`/audio/nome.wav`)
+- Cor amarela de destaque: `text-yellow-400` com `textShadow` para glow
+- O player gerencia estado de playlist com skip/shuffle/repeat funcional
