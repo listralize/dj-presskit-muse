@@ -37,6 +37,8 @@ const FloatingInput = ({
 } & React.InputHTMLAttributes<HTMLInputElement>) => {
   const [focused, setFocused] = useState(false);
   const hasValue = props.value && String(props.value).length > 0;
+  const isDate = props.type === "date";
+  const hideLabel = focused || hasValue || isDate;
 
   return (
     <div className="relative group">
@@ -51,17 +53,18 @@ const FloatingInput = ({
          className="w-full bg-transparent border-b border-foreground/15 focus:border-foreground/50 pl-7 pr-0 py-3 text-sm text-foreground outline-none transition-all duration-300 peer placeholder-transparent [&::-webkit-calendar-picker-indicator]:invert"
          placeholder={label}
        />
-       <label
-         htmlFor={id}
-         className={`absolute left-7 transition-all duration-300 pointer-events-none ${
-           focused || hasValue
-             ? "-top-1 text-[10px] tracking-widest uppercase text-foreground/70 opacity-0"
-             : "top-3 text-sm text-foreground/40"
-         }`}
-         style={focused || hasValue ? { filter: "blur(2px)" } : {}}
-       >
-        {label}
-      </label>
+       {!isDate && (
+         <label
+           htmlFor={id}
+           className={`absolute left-7 transition-all duration-300 pointer-events-none ${
+             hideLabel
+               ? "-top-1 text-[10px] tracking-widest uppercase text-foreground/70 opacity-0"
+               : "top-3 text-sm text-foreground/40"
+           }`}
+         >
+           {label}
+         </label>
+       )}
       {error && <p className="text-[11px] text-destructive/80 mt-1.5 pl-7">{error}</p>}
     </div>
   );
