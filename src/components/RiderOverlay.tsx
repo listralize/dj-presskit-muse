@@ -86,7 +86,7 @@ const RiderOverlay = ({ isOpen, onClose }: RiderOverlayProps) => {
       onClick={handleClose}
       style={{ animation: "riderFadeIn 400ms cubic-bezier(0.16, 1, 0.3, 1)" }}
     >
-      <div className="absolute inset-0 bg-background/95 backdrop-blur-xl" />
+      <div className="absolute inset-0" style={{ backgroundColor: "#05070a" }} />
 
       {/* Close */}
       <button
