@@ -103,7 +103,7 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden">
       {/* Logo + DJ + Legenda */}
-      <div className="relative z-10 flex flex-col items-center pt-10 pb-4 gap-1">
+      <div className="relative z-10 flex flex-col items-center pt-10 pb-4 gap-1" style={{ marginTop: "-6px" }}>
         <div className="relative inline-flex items-center justify-center">
           <UnkDjEffect className="h-16 md:h-20 text-white" speed={0.8} />
         </div>
