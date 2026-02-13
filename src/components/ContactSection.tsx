@@ -1,8 +1,7 @@
 import { Mail, Phone } from "lucide-react";
 import { motion } from "motion/react";
 import logo from "@/assets/logo.png";
-import djStageBg from "@/assets/dj-stage-bg.png";
-import djCutout from "@/assets/dj-stage-cutout.png";
+import djMoon from "@/assets/dj-moon.png";
 
 const ContactSection = () => {
   return (
@@ -40,34 +39,23 @@ const ContactSection = () => {
             </a>
           </div>
 
-          {/* Right - Motion image */}
-          <div className="relative flex justify-center items-center h-[400px] md:h-[500px] overflow-hidden rounded-xl">
-            {/* Background image */}
-            <img
-              src={djStageBg}
-              alt="DJ Unk no palco"
-              className="absolute inset-0 w-full h-full object-cover rounded-xl"
+          {/* DJ on the moon */}
+          <motion.div
+            className="relative flex justify-center items-center h-[350px] md:h-[500px] overflow-hidden rounded-xl"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-background via-background/80 to-transparent h-[40%]" />
+            <motion.img
+              src={djMoon}
+              alt="DJ Unk na lua"
+              className="w-full h-full object-contain object-bottom"
+              animate={{ filter: ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 20px rgba(255,255,255,0.25))", "drop-shadow(0 0 0px rgba(255,255,255,0))"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent rounded-xl" />
-
-            {/* PNG cutout with glow pulse effect, no movement */}
-            <motion.div
-              className="absolute inset-0 z-10 flex items-end justify-center" style={{ top: "-60px" }}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              viewport={{ once: true }}
-            >
-              <motion.img
-                src={djCutout}
-                alt="DJ Unk"
-                className="w-full h-full object-cover object-top rounded-xl"
-                animate={{ filter: ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 20px rgba(255,255,255,0.25))", "drop-shadow(0 0 0px rgba(255,255,255,0))"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              />
-            </motion.div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Footer */}
