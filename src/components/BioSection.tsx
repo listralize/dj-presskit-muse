@@ -17,10 +17,10 @@ const BioSection = () => {
           {/* Right content */}
           <div className="md:col-span-8 space-y-6 text-foreground/80 text-base leading-relaxed font-light">
             <p>
-              Marcelo Filho, nome por trás de <span className="font-medium" style={{ color: "#a6c8d3", textShadow: "0 0 10px rgba(255,255,255,0.2)" }}>Unk DJ</span>, é um dos grandes produtores do gênero em ascensão em diversos estados do Brasil. Reconhecido por transformar energia em ritmo, o artista se destaca pela autenticidade sonora e por produções marcantes, fortemente influenciadas pelo house music.
+              Marcelo Filho, nome por trás de <span className="font-medium bg-gradient-to-r from-[#d0d0d0] via-[#f0f0f0] to-[#b0b0b0] bg-clip-text text-transparent" style={{ filter: "drop-shadow(0 0 6px rgba(255,255,255,0.15))" }}>Unk DJ</span>, é um dos grandes produtores do gênero em ascensão em diversos estados do Brasil. Reconhecido por transformar energia em ritmo, o artista se destaca pela autenticidade sonora e por produções marcantes, fortemente influenciadas pelo house music.
             </p>
             <p>
-              Natural de Quirinópolis (GO), despertou seu interesse pela música eletrônica aos 17 anos e, após anos de dedicação e estudo em produção musical, consolidou seu nome no cenário com lançamentos expressivos. Entre eles, destaca-se o hit <span className="font-medium" style={{ color: "#a6c8d3", textShadow: "0 0 10px rgba(255,255,255,0.2)" }}>"Rock This"</span>, em colaboração com Vinicius Cavalcante, que ultrapassou a marca de 1 milhão de plays.
+              Natural de Quirinópolis (GO), despertou seu interesse pela música eletrônica aos 17 anos e, após anos de dedicação e estudo em produção musical, consolidou seu nome no cenário com lançamentos expressivos. Entre eles, destaca-se o hit <span className="font-medium bg-gradient-to-r from-[#d0d0d0] via-[#f0f0f0] to-[#b0b0b0] bg-clip-text text-transparent" style={{ filter: "drop-shadow(0 0 6px rgba(255,255,255,0.15))" }}>"Rock This"</span>, em colaboração com Vinicius Cavalcante, que ultrapassou a marca de 1 milhão de plays.
             </p>
             <p>
               Com uma sonoridade vibrante, batidas impactantes e visão artística moderna, Unk DJ segue expandindo seu projeto, conectando pista e conceito em cada produção.

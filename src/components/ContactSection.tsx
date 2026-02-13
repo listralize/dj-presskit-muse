@@ -20,7 +20,7 @@ const ContactSection = () => {
             href="mailto:contato@unkdj.com"
             className="flex items-center gap-3 px-6 py-3 border border-border text-foreground hover:border-primary/40 transition-colors duration-300 text-sm"
           >
-            <Mail size={16} style={{ color: "#a6c8d3" }} />
+            <Mail size={16} className="text-foreground/70" />
             contato@unkdj.com
           </a>
           <a
@@ -29,7 +29,7 @@ const ContactSection = () => {
             rel="noopener noreferrer"
             className="flex items-center gap-3 px-6 py-3 border border-border text-foreground hover:border-primary/40 transition-colors duration-300 text-sm"
           >
-            <Phone size={16} style={{ color: "#a6c8d3" }} />
+            <Phone size={16} className="text-foreground/70" />
             WhatsApp
           </a>
         </div>
