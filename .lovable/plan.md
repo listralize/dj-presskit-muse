@@ -1,21 +1,57 @@
 
-## Plano: Substituir imagem do rodape por foto na lua
 
-### O que sera feito
+## Plano: Redesign da secao Contato com pastas 3D
 
-1. **Copiar a imagem** enviada (`gfhjfgjgkfg.png`) para `src/assets/dj-moon.png`
+### Visao geral
 
-2. **Substituir a area de motion do rodape** (linhas 43-70 do ContactSection) pela nova imagem do DJ na lua, com:
-   - Imagem centralizada horizontalmente
-   - Gradiente preto de cima para baixo (`bg-gradient-to-b from-background via-background/60 to-transparent`) sobreposto na parte superior da imagem, integrando com o fundo escuro do site
-   - A parte branca superior da imagem PNG sera ocultada pelo fade preto
-   - Entrada suave com `motion` fade-in ao entrar no viewport
-   - Efeito sutil de glow pulsante (mesmo estilo atual) sem movimentacao
+A secao de contato sera redesenhada com:
+- **Remover**: links de email e WhatsApp, titulo "Contato" e subtitulo
+- **Manter**: imagem do DJ na lua com efeito UNK + footer com logo e copyright
+- **Adicionar**: 3 pastas animadas 3D (Fotos, Rider, Videos) acima da imagem
+
+### Estrutura visual
+
+```text
++--------------------------------------------+
+|     [Pasta Fotos] [Pasta Rider] [Pasta Videos]     |
+|                                            |
+|         (efeito UNK animado atras)         |
+|         [DJ na lua com fade e glow]        |
+|                                            |
+|  ------- footer com logo e copyright ------|
++--------------------------------------------+
+```
 
 ### Detalhes tecnicos
 
-- Remover imports de `djStageBg` e `djCutout` (nao serao mais usados nessa secao)
-- Importar novo asset `dj-moon.png`
-- Container com `overflow-hidden` e altura adequada (~500px desktop, ~350px mobile)
-- Gradiente overlay posicionado com `absolute` cobrindo os ~40% superiores da imagem para fundir o branco do PNG com o fundo preto
-- Imagem centralizada com `object-contain` e `object-bottom` para manter o DJ e a superficie lunar visiveis
+1. **Criar `src/components/ui/3d-folder.tsx`**
+   - Adaptar o componente AnimatedFolder da GammaUI (fonte completa obtida do GitHub)
+   - Substituir icones `@tabler/icons-react` por equivalentes do `lucide-react` (X, ExternalLink, ChevronLeft, ChevronRight)
+   - Substituir classes Tailwind 4 (`bg-linear-to-t`) por Tailwind 3 (`bg-gradient-to-t`)
+   - Adaptar cores das pastas de hardcoded azul para CSS variables compatíveis com o tema escuro do site (usar tons de azul/cinza que combinem com a estetica)
+   - Mudar interacao de hover para click (toggle) para funcionar em mobile tambem (o source ja usa click)
+
+2. **Adicionar CSS variables para as pastas no `src/index.css`**
+   - `--folder-back`, `--folder-front`, `--folder-tab` em tons que combinem com a paleta escura do site
+
+3. **Atualizar `tailwind.config.ts`**
+   - Adicionar cores `folder-back`, `folder-front`, `folder-tab` no extend colors
+
+4. **Reescrever `src/components/ContactSection.tsx`**
+   - Remover links de email/WhatsApp e titulo de contato
+   - Adicionar 3 instancias de `AnimatedFolder` com titulo "Fotos", "Rider" e "Videos"
+   - Cada pasta tera projetos placeholder (imagens placeholder por enquanto ate o usuario enviar os arquivos reais)
+   - Manter a composicao do DJ na lua + efeito UNK abaixo
+   - Manter o footer
+
+5. **Renomear secao** de "Contato" para algo como "Midia" ou remover titulo por completo (manter minimalista)
+
+### Pastas e conteudo
+
+As 3 pastas terao conteudo placeholder inicialmente:
+- **Fotos**: 3 cards placeholder aguardando imagens do usuario
+- **Rider**: 3 cards placeholder aguardando documentos/imagens do rider tecnico
+- **Videos**: 3 cards placeholder aguardando thumbnails de video
+
+O usuario podera enviar os arquivos reais depois para popular cada pasta.
+
