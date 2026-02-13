@@ -29,23 +29,15 @@ const Globe: React.FC = () => {
               border: "none",
               outline: "none",
               boxShadow: "none",
+              filter: "brightness(0.55) saturate(0.7)",
             }}
           />
 
-          {/* Day/night terminator shadow - darker to match photo */}
+          {/* Day/night terminator shadow */}
           <div
             className="absolute inset-0 rounded-full"
             style={{
-              background: "linear-gradient(120deg, transparent 30%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.85) 100%)",
-              pointerEvents: "none",
-            }}
-          />
-
-          {/* Subtle specular highlight */}
-          <div
-            className="absolute inset-0 rounded-full"
-            style={{
-              background: "radial-gradient(circle at 35% 30%, hsla(200,80%,80%,0.1), transparent 40%)",
+              background: "linear-gradient(130deg, transparent 35%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.8) 100%)",
               pointerEvents: "none",
             }}
           />
