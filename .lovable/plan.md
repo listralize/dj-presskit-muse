@@ -1,56 +1,38 @@
 
 
-## Plano: Redesign da secao Contato com pastas 3D
+## Plano: Globo mobile + Fotos na pasta + Download
 
-### Visao geral
+### 1. Subir o globo 15px no mobile
 
-A secao de contato sera redesenhada com:
-- **Remover**: links de email e WhatsApp, titulo "Contato" e subtitulo
-- **Manter**: imagem do DJ na lua com efeito UNK + footer com logo e copyright
-- **Adicionar**: 3 pastas animadas 3D (Fotos, Rider, Videos) acima da imagem
+No `HeroSection.tsx` linha 133, o globo no mobile tem `top-[calc(24%+14px)]`. Sera ajustado para `top-[calc(24%-1px)]` (14px - 15px = -1px).
 
-### Estrutura visual
+### 2. Adicionar as 7 fotos na pasta "Fotos"
 
-```text
-+--------------------------------------------+
-|     [Pasta Fotos] [Pasta Rider] [Pasta Videos]     |
-|                                            |
-|         (efeito UNK animado atras)         |
-|         [DJ na lua com fade e glow]        |
-|                                            |
-|  ------- footer com logo e copyright ------|
-+--------------------------------------------+
-```
+- Copiar as 7 imagens enviadas para `public/photos/` (usando public/ para que os arquivos fiquem acessiveis via URL direta para download sem compressao)
+- Atualizar `fotosData` no `ContactSection.tsx` com os caminhos das 7 fotos reais
+
+### 3. Botao "Baixar todos" na pasta
+
+- Adicionar um botao "Baixar todos" no componente `AnimatedFolder` que aparece quando a pasta esta aberta
+- Receber uma prop opcional `downloadFiles` com array de URLs dos arquivos originais
+- Ao clicar, faz download sequencial de cada arquivo usando `<a download>` apontando para o caminho em `/photos/` -- sem compressao, qualidade maxima original
+- Como os arquivos estao no `public/`, o download sera do arquivo original sem nenhum processamento
 
 ### Detalhes tecnicos
 
-1. **Criar `src/components/ui/3d-folder.tsx`**
-   - Adaptar o componente AnimatedFolder da GammaUI (fonte completa obtida do GitHub)
-   - Substituir icones `@tabler/icons-react` por equivalentes do `lucide-react` (X, ExternalLink, ChevronLeft, ChevronRight)
-   - Substituir classes Tailwind 4 (`bg-linear-to-t`) por Tailwind 3 (`bg-gradient-to-t`)
-   - Adaptar cores das pastas de hardcoded azul para CSS variables compatíveis com o tema escuro do site (usar tons de azul/cinza que combinem com a estetica)
-   - Mudar interacao de hover para click (toggle) para funcionar em mobile tambem (o source ja usa click)
+**Arquivos modificados:**
+- `src/components/HeroSection.tsx` -- ajustar top do globo mobile
+- `src/components/ContactSection.tsx` -- atualizar fotosData com 7 fotos reais + passar prop downloadFiles
+- `src/components/ui/3d-folder.tsx` -- adicionar prop `downloadFiles` e botao de download
 
-2. **Adicionar CSS variables para as pastas no `src/index.css`**
-   - `--folder-back`, `--folder-front`, `--folder-tab` em tons que combinem com a paleta escura do site
+**Arquivos criados:**
+- `public/photos/DSC01978.jpg` (copia)
+- `public/photos/DSC01866.jpg` (copia)
+- `public/photos/DSC01883.jpg` (copia)
+- `public/photos/DSC01891.jpg` (copia)
+- `public/photos/DSC01905.jpg` (copia)
+- `public/photos/DSC01916.jpg` (copia)
+- `public/photos/DSC01959.jpg` (copia)
 
-3. **Atualizar `tailwind.config.ts`**
-   - Adicionar cores `folder-back`, `folder-front`, `folder-tab` no extend colors
+**Logica de download:** Cada arquivo sera baixado individualmente via `fetch` + `blob` + `URL.createObjectURL` + `<a download>` para garantir que o navegador faca download e nao abra a imagem. Sem zip, sem compressao.
 
-4. **Reescrever `src/components/ContactSection.tsx`**
-   - Remover links de email/WhatsApp e titulo de contato
-   - Adicionar 3 instancias de `AnimatedFolder` com titulo "Fotos", "Rider" e "Videos"
-   - Cada pasta tera projetos placeholder (imagens placeholder por enquanto ate o usuario enviar os arquivos reais)
-   - Manter a composicao do DJ na lua + efeito UNK abaixo
-   - Manter o footer
-
-5. **Renomear secao** de "Contato" para algo como "Midia" ou remover titulo por completo (manter minimalista)
-
-### Pastas e conteudo
-
-As 3 pastas terao conteudo placeholder inicialmente:
-- **Fotos**: 3 cards placeholder aguardando imagens do usuario
-- **Rider**: 3 cards placeholder aguardando documentos/imagens do rider tecnico
-- **Videos**: 3 cards placeholder aguardando thumbnails de video
-
-O usuario podera enviar os arquivos reais depois para popular cada pasta.
