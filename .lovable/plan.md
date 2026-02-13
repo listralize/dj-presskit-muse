@@ -1,63 +1,26 @@
 
 
-# Redesign do Hero + Formulario Moderno com WhatsApp
+# Globo sobreposto na foto do DJ
 
-## Visao Geral
+## O que muda
 
-Redesign completo do HeroSection: remover o texto "UNK DJ" duplicado, manter apenas a logo + foto do DJ + um formulario de contato super moderno que cumprimenta o usuario pelo nome em tempo real e envia os dados preenchidos via WhatsApp.
+### 1. Reposicionar o Globe
+Mover o componente Globe de fundo geral da secao para dentro do container da foto do DJ, posicionado no canto superior direito da foto -- exatamente onde o planeta aparece na foto espacial do DJ.
 
----
+### 2. Melhorar a textura do Globe
+O Globe atual tem gradientes de continente muito sutis (opacity 0.3). Vou aumentar a visibilidade:
+- Aumentar opacidade dos "continentes" de 0.3 para 0.5
+- Melhorar o brilho atmosferico para dar mais profundidade
+- Adicionar uma borda sutil de atmosfera (halo azulado)
 
-## Mudancas no HeroSection
+### 3. Posicionamento exato
+- O globe fica posicionado `absolute` dentro do wrapper da foto
+- Desktop: ~200px de diametro, posicionado no canto superior direito da foto (onde o planeta aparece na imagem)
+- Mobile: ~140px, mesma posicao relativa
+- `z-10` acima da foto mas abaixo do gradient overlay
+- Opacity ~60-70% para integrar com a foto sem dominar
 
-### Layout
-- **Logo** centralizada no topo
-- **Legenda** "Energia em Ritmo | Eletrofunk | House Music" abaixo da logo
-- **Split layout**: foto do DJ de um lado, formulario do outro (em mobile, empilhados)
-- **Remover** o texto "UNK DJ" em h1 (ja esta na logo)
-- **Manter** links sociais discretos
+## Arquivos modificados
 
-### Formulario Moderno
-Campos:
-- **Nome** (obrigatorio) - ao digitar, o formulario exibe "Ola, [Nome]!" em tempo real
-- **Telefone** (obrigatorio)
-- **Tipo de evento** (select customizado: Festa, Festival, Casamento, Corporativo, Outro)
-- **Data do evento** (input date)
-- **Mensagem** (textarea, opcional)
-
-Estilo do formulario:
-- Inputs com fundo transparente, borda inferior fina (underline style)
-- Labels que flutuam (floating labels) ao focar/preencher
-- Transicoes suaves CSS
-- Botao de envio minimalista com icone do WhatsApp
-- Totalmente responsivo
-
-### Envio via WhatsApp
-Ao clicar em "Enviar", monta uma mensagem formatada com todos os dados e abre `https://wa.me/5500000000000?text=...` com os dados encodados via `encodeURIComponent`.
-
-### Validacao
-- Validacao client-side com zod (nome, telefone obrigatorios, formato de telefone)
-- Mensagens de erro sutis abaixo dos campos
-- Encoding correto dos dados na URL do WhatsApp com `encodeURIComponent`
-
----
-
-## Detalhes Tecnicos
-
-### Arquivos modificados:
-1. **`src/components/HeroSection.tsx`** - Redesign completo com formulario integrado
-
-### Dependencias utilizadas (ja instaladas):
-- `zod` para validacao
-- `react-hook-form` + `@hookform/resolvers` para gerenciamento do formulario
-- `lucide-react` para icones
-
-### Estrutura do formulario:
-- Componente interno no HeroSection (sem criar arquivo separado, mantendo simplicidade)
-- Estado controlado via `react-hook-form` com resolver zod
-- `watch("nome")` para exibir saudacao em tempo real
-- Funcao `handleSubmit` que monta a URL do WhatsApp e abre em nova aba
-
-### Responsividade:
-- Desktop: grid 2 colunas (foto | formulario)
-- Mobile: stack vertical (logo, legenda, foto, formulario)
+1. **`src/components/ui/globe.tsx`** -- Aumentar visibilidade da textura (opacidade dos continentes, brilho atmosferico)
+2. **`src/components/HeroSection.tsx`** -- Mover o Globe para dentro do container da foto do DJ, remover o posicionamento de fundo geral
