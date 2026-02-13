@@ -50,7 +50,7 @@ const ContactSection = () => {
 
         {/* DJ on the moon */}
         <motion.div
-          className="relative flex justify-center items-center h-[350px] md:h-[500px] overflow-hidden rounded-xl"
+          className="relative flex justify-center items-center h-[350px] md:h-[500px] overflow-hidden"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
@@ -60,7 +60,14 @@ const ContactSection = () => {
           <div className="absolute inset-0 z-[1] flex items-center justify-center opacity-15 lg:mt-[-100px] mt-[-50px]">
             <UnkDjEffect className="h-32 md:h-48 text-white" speed={1.2} />
           </div>
-          <div className="absolute inset-0 z-10 bg-gradient-to-b from-background via-background/80 to-transparent h-[40%]" />
+          {/* Top fade */}
+          <div className="absolute inset-x-0 top-0 z-10 h-[45%] bg-gradient-to-b from-background via-background/70 to-transparent" />
+          {/* Bottom fade */}
+          <div className="absolute inset-x-0 bottom-0 z-10 h-[35%] bg-gradient-to-t from-background via-background/60 to-transparent" />
+          {/* Left fade */}
+          <div className="absolute inset-y-0 left-0 z-10 w-[20%] bg-gradient-to-r from-background via-background/50 to-transparent" />
+          {/* Right fade */}
+          <div className="absolute inset-y-0 right-0 z-10 w-[20%] bg-gradient-to-l from-background via-background/50 to-transparent" />
           <motion.img
             src={djMoon}
             alt="DJ Unk na lua"
