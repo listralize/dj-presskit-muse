@@ -40,7 +40,7 @@ const FloatingInput = ({
 
   return (
     <div className="relative group">
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 text-foreground/50 group-focus-within:text-primary transition-colors duration-300">
+      <div className="absolute left-0 top-1/2 -translate-y-1/2 text-foreground/40 group-focus-within:text-foreground transition-colors duration-300" style={{ filter: "drop-shadow(0 0 4px rgba(255,255,255,0.3))" }}>
         <Icon size={16} />
       </div>
       <input
@@ -48,16 +48,17 @@ const FloatingInput = ({
          {...props}
          onFocus={(e) => { setFocused(true); props.onFocus?.(e); }}
          onBlur={(e) => { setFocused(false); props.onBlur?.(e); }}
-         className="w-full bg-transparent border-b border-foreground/20 focus:border-primary pl-7 pr-0 py-3 text-sm text-foreground outline-none transition-all duration-300 peer placeholder-transparent [&::-webkit-calendar-picker-indicator]:invert"
+         className="w-full bg-transparent border-b border-foreground/15 focus:border-foreground/50 pl-7 pr-0 py-3 text-sm text-foreground outline-none transition-all duration-300 peer placeholder-transparent [&::-webkit-calendar-picker-indicator]:invert"
          placeholder={label}
        />
        <label
          htmlFor={id}
          className={`absolute left-7 transition-all duration-300 pointer-events-none ${
            focused || hasValue
-             ? "-top-1 text-[10px] tracking-widest uppercase text-primary"
-             : "top-3 text-sm text-foreground/50"
+             ? "-top-1 text-[10px] tracking-widest uppercase text-foreground/70 opacity-0"
+             : "top-3 text-sm text-foreground/40"
          }`}
+         style={focused || hasValue ? { filter: "blur(2px)" } : {}}
        >
         {label}
       </label>
@@ -161,7 +162,7 @@ const HeroSection = () => {
             </p>
             <h2 className="text-3xl md:text-4xl font-display text-foreground leading-none">
               {nome ? (
-                <>Olá, <span className="text-primary">{nome}</span>!</>
+                <>Olá, <span className="text-foreground" style={{ textShadow: "0 0 10px rgba(255,255,255,0.4)" }}>{nome}</span>!</>
               ) : (
                 "Vamos trabalhar juntos?"
               )}
@@ -189,18 +190,18 @@ const HeroSection = () => {
 
              {/* Custom select */}
              <div className="relative group">
-               <div className="absolute left-0 top-1/2 -translate-y-1/2 text-foreground/50 group-focus-within:text-primary transition-colors duration-300">
+               <div className="absolute left-0 top-1/2 -translate-y-1/2 text-foreground/40 group-focus-within:text-foreground transition-colors duration-300" style={{ filter: "drop-shadow(0 0 4px rgba(255,255,255,0.3))" }}>
                  <MessageSquare size={16} />
                </div>
                <button
                  type="button"
                  onClick={() => setSelectOpen(!selectOpen)}
-                 className="w-full bg-transparent border-b border-foreground/20 focus:border-primary pl-7 pr-6 py-3 text-sm text-left outline-none transition-all duration-300 flex items-center justify-between"
+                 className="w-full bg-transparent border-b border-foreground/15 focus:border-foreground/50 pl-7 pr-6 py-3 text-sm text-left outline-none transition-all duration-300 flex items-center justify-between"
                >
-                 <span className={tipoEvento ? "text-foreground" : "text-foreground/50"}>
+                 <span className={tipoEvento ? "text-foreground" : "text-foreground/40"}>
                    {tipoEvento || "Tipo de evento"}
                  </span>
-                 <ChevronDown size={14} className={`text-foreground/50 transition-transform duration-200 ${selectOpen ? "rotate-180" : ""}`} />
+                 <ChevronDown size={14} className={`text-foreground/40 transition-transform duration-200 ${selectOpen ? "rotate-180" : ""}`} />
                </button>
                {selectOpen && (
                  <div className="absolute z-20 top-full left-0 right-0 mt-1 bg-card border border-border rounded-sm overflow-hidden">
@@ -233,7 +234,7 @@ const HeroSection = () => {
 
              {/* Textarea */}
              <div className="relative group">
-               <div className="absolute left-0 top-3 text-foreground/50 group-focus-within:text-primary transition-colors duration-300">
+               <div className="absolute left-0 top-3 text-foreground/40 group-focus-within:text-foreground transition-colors duration-300" style={{ filter: "drop-shadow(0 0 4px rgba(255,255,255,0.3))" }}>
                  <MessageCircle size={16} />
                </div>
                <textarea
@@ -241,14 +242,15 @@ const HeroSection = () => {
                  {...register("mensagem")}
                  rows={3}
                  placeholder="Mensagem (opcional)"
-                 className="w-full bg-transparent border-b border-foreground/20 focus:border-primary pl-7 py-3 text-sm text-foreground outline-none transition-all duration-300 placeholder:text-foreground/50 resize-none"
+                 className="w-full bg-transparent border-b border-foreground/15 focus:border-foreground/50 pl-7 py-3 text-sm text-foreground outline-none transition-all duration-300 placeholder:text-foreground/40 resize-none"
                />
              </div>
 
              {/* Submit */}
              <button
                type="submit"
-               className="w-full flex items-center justify-center gap-3 py-3.5 border border-primary/40 text-primary hover:bg-primary/10 text-sm tracking-[0.2em] uppercase transition-all duration-300 rounded-lg mt-4"
+               className="w-full flex items-center justify-center gap-3 py-3.5 border border-foreground/20 text-foreground hover:bg-foreground/5 text-sm tracking-[0.2em] uppercase transition-all duration-300 rounded-lg mt-4"
+               style={{ textShadow: "0 0 8px rgba(255,255,255,0.3)" }}
              >
                <MessageCircle size={16} />
                Enviar via WhatsApp
