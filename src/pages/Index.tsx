@@ -3,16 +3,19 @@ import BioSection from "@/components/BioSection";
 import StatsSection from "@/components/StatsSection";
 import EventsSection from "@/components/EventsSection";
 import ContactSection from "@/components/ContactSection";
+import { StarsBackground } from "@/components/ui/stars";
 
 const Index = () => {
   return (
-    <main className="bg-background min-h-screen">
-      <HeroSection />
-      <BioSection />
-      <StatsSection />
-      <EventsSection />
-      <ContactSection />
-    </main>
+    <StarsBackground className="bg-background min-h-screen" speed={80} starColor="rgba(255,255,255,0.8)">
+      <main className="relative z-10">
+        <HeroSection />
+        <BioSection />
+        <StatsSection />
+        <EventsSection />
+        <ContactSection />
+      </main>
+    </StarsBackground>
   );
 };
 

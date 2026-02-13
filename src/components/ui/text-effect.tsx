@@ -163,7 +163,7 @@ function UnkDjEffect({
         {/* DJ text inside SVG, centered on K area */}
         <motion.text
           x="820"
-          y="182"
+          y="179"
           textAnchor="middle"
           fill="currentColor"
           stroke="none"
