@@ -122,7 +122,7 @@ const ContactSection = () => {
             ))}
           </div>
           <p className="text-[10px] text-foreground/40 uppercase tracking-widest">
-            © 2025 Unk DJ · Todos os direitos reservados
+            © 2026 Unk DJ · Todos os direitos reservados
           </p>
           <a
             href="https://www.listralize.com.br"
