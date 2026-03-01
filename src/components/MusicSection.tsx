@@ -4,6 +4,9 @@ import AudioPlayer from "@/components/ui/audio-player";
 import { cn } from "@/lib/utils";
 
 const tracks = [
+  { title: "Eu Já (feat. MC Jacaré)", src: "/audio/Unk_DJ_-_Eu_Ja_-_MC_JACARE_v2_1.wav" },
+  { title: "Posso Até Não Te Dar Flores", src: "/audio/Unk_DJ_-_Posso_Ate_Nao_Te_Dar_Flores_1.wav" },
+  { title: "Rock This (feat. Vinicius Cavalcante, Tálita)", src: "/audio/Unk_DJ_Vinicius_Cavalcante_Talita_-_Rock_This_1.wav" },
   { title: "Medley de Igaratá 3 (feat. Décio Gomes)", src: "/audio/DECIO_GOMES_UNK_-_MEDLEY_DE_IGARATA_3_final.wav" },
   { title: "Bololo (feat. Nadir Netto, Brendow)", src: "/audio/BOLOLO_-_UNK_NADIRNETTO_BRENDOW_final.wav" },
   { title: "300 no 7 (feat. Nadir Netto, MC GP, MC Luuky, MC J Vila)", src: "/audio/300_NO_7_-_UNK_NADIRNETTO_MC_GP_MC_LUUKY_MC_J_VILA_v2_1.wav" },

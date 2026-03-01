@@ -53,7 +53,7 @@ const BioSection = () => {
               </h2>
             </div>
 
-            <div className="space-y-6 text-foreground/75 text-base md:text-lg leading-relaxed font-light">
+            <div className="space-y-6 text-foreground/75 text-base md:text-lg leading-relaxed font-light text-justify">
               <p>
                 Marcelo Filho, nome por trás de{" "}
                 <span

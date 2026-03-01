@@ -22,6 +22,7 @@ const fotosData = [
   { id: "f9", image: "/photos/DSC02058.jpg", title: "DSC02058" },
   { id: "f10", image: "/photos/DSC02068.jpg", title: "DSC02068" },
   { id: "f11", image: "/photos/DSC02125.jpg", title: "DSC02125" },
+  { id: "f12", image: "/downloads/logo-unk.png", title: "Logo" },
 ];
 
 const fotosDownloadFiles = [
@@ -36,6 +37,7 @@ const fotosDownloadFiles = [
   "/photos/DSC02058.jpg",
   "/photos/DSC02068.jpg",
   "/photos/DSC02125.jpg",
+  "/downloads/LOGONEW_1.pdf",
 ];
 
 const videosData = [
@@ -44,35 +46,20 @@ const videosData = [
 
 const VIDEOS_DRIVE_URL = "https://drive.google.com/drive/folders/178f-sz2C9RQ2LkXNvosJvRhDdrP1ypbD?usp=sharing";
 
-const necessariosData = [
-  { id: "n1", image: "/downloads/logo-unk.png", title: "Logo" },
-  { id: "n2", image: "/downloads/logo-unk.png", title: "Rider Técnico" },
+const riderData = [
+  { id: "n1", image: "/downloads/logo-unk.png", title: "Rider Técnico" },
 ];
 
-const necessariosDownloadFiles = [
-  "/downloads/LOGONEW_1.pdf",
+const riderDownloadFiles = [
   "/downloads/Rider_Tecnico_UNK_DJ.pdf",
 ];
 
 const ContactSection = () => {
   const [riderOpen, setRiderOpen] = useState(false);
 
-  const handleNecessariosClick = (_project: { id: string; image: string; title: string }, index: number) => {
-    if (index === 0) {
-      // Logo - download
-      const a = document.createElement("a");
-      a.href = "/downloads/LOGONEW_1.pdf";
-      a.download = "Logo_UNK_DJ.pdf";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      return true;
-    }
-    if (index === 1) {
-      // Rider - open overlay
-      setRiderOpen(true);
-      return true;
-    }
+  const handleRiderClick = () => {
+    setRiderOpen(true);
+    return true;
   };
 
   return (
@@ -81,7 +68,7 @@ const ContactSection = () => {
         {/* 3D Folders */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 mb-12">
           <AnimatedFolder title="Fotos" projects={fotosData} downloadFiles={fotosDownloadFiles} />
-          <AnimatedFolder title="Necessários" projects={necessariosData} downloadFiles={necessariosDownloadFiles} onItemClick={handleNecessariosClick} />
+          <AnimatedFolder title="Rider" projects={riderData} downloadFiles={riderDownloadFiles} onItemClick={handleRiderClick} />
           <AnimatedFolder title="Vídeos" projects={videosData} onItemClick={() => { window.open(VIDEOS_DRIVE_URL, "_blank"); return true; }} />
         </div>
 
