@@ -11,6 +11,7 @@ import { AnimatedFolder } from "@/components/ui/3d-folder";
 import RiderOverlay from "@/components/RiderOverlay";
 
 const fotosData = [
+  { id: "f0", image: "/downloads/logo-unk.png", title: "⬇ Logo Oficial" },
   { id: "f1", image: "/photos/DSC01978.jpg", title: "DSC01978" },
   { id: "f2", image: "/photos/DSC01866.jpg", title: "DSC01866" },
   { id: "f3", image: "/photos/DSC01883.jpg", title: "DSC01883" },
@@ -22,7 +23,6 @@ const fotosData = [
   { id: "f9", image: "/photos/DSC02058.jpg", title: "DSC02058" },
   { id: "f10", image: "/photos/DSC02068.jpg", title: "DSC02068" },
   { id: "f11", image: "/photos/DSC02125.jpg", title: "DSC02125" },
-  { id: "f12", image: "/downloads/logo-unk.png", title: "Logo" },
 ];
 
 const fotosDownloadFiles = [
