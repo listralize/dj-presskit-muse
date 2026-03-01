@@ -53,7 +53,7 @@ const MusicSection = () => {
             className="text-5xl md:text-6xl font-display tracking-wider bg-gradient-to-r from-[#c0c0c0] via-[#f0f0f0] to-[#a8a8a8] bg-clip-text text-transparent"
             style={{ filter: "drop-shadow(0 0 10px rgba(255,255,255,0.15))" }}
           >
-            Músicas
+            Últimos Lançamentos
           </h2>
         </div>
 
