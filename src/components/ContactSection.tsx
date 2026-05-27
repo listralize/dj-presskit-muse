@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import logo from "@/assets/logo.png";
-import djMoon from "@/assets/dj-moon.png";
+import djMoon from "@/assets/dj-floating.png";
 import { UnkDjEffect } from "@/components/ui/text-effect";
 import { Instagram, Youtube } from "lucide-react";
 import SpotifyIcon from "@/components/ui/SpotifyIcon";
@@ -94,10 +94,17 @@ const ContactSection = () => {
           <div className="absolute inset-y-0 right-0 z-10 w-[20%] bg-gradient-to-l from-background via-background/50 to-transparent" />
           <motion.img
             src={djMoon}
-            alt="DJ Unk na lua"
+            alt="Unk DJ"
             className="relative z-[5] w-full h-full object-contain object-bottom"
-            animate={{ filter: ["drop-shadow(0 0 0px rgba(255,255,255,0))", "drop-shadow(0 0 20px rgba(255,255,255,0.25))", "drop-shadow(0 0 0px rgba(255,255,255,0))"] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            animate={{
+              y: [0, -18, 0],
+              filter: [
+                "drop-shadow(0 10px 20px rgba(0,0,0,0.5))",
+                "drop-shadow(0 25px 35px rgba(0,0,0,0.6)) drop-shadow(0 0 25px rgba(255,255,255,0.2))",
+                "drop-shadow(0 10px 20px rgba(0,0,0,0.5))",
+              ],
+            }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           />
         </motion.div>
 
